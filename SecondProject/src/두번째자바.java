@@ -5,7 +5,7 @@ public class 두번째자바 {
 		// TODO Auto-generated method stub
 		 
 		System.out.println("두번째자바");	
-		
+		 
 		    
 	}
 
