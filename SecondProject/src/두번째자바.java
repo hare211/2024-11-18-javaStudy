@@ -7,6 +7,7 @@ public class 두번째자바 {
 		System.out.println("두번째자바");
 		int a = 10;
 		
+		
 	}
 
 }
