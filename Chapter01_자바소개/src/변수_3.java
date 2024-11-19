@@ -28,7 +28,7 @@ public class 변수_3 {
 		int mathScore =  90;
 		int engScore = 90;
 		int total = 270;
-		double average = 90.0;
+		double average = 90.0; 
 		char grade = 'A';
 		int rank = 2;
 		

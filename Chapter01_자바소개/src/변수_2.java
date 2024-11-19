@@ -75,7 +75,7 @@ public class 변수_2 {
 		System.out.println(d);
 		// 왼쪽에 있는 데이터형이 크거나 같아서 저장이 가능
 		/*
-		 * 데이터는 선언 된 데이터형을 따라간다
+		 * 데이터는 선언 된 데이터형을 따라간다 
 		 * 
 		 * byte = byte
 		 * short = short, byte
