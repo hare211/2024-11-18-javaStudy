@@ -14,10 +14,43 @@
  *  ==========
  *   "1437" + 7
  *   "14377"
+ *   
+ *   논리형 : boolean (30page)
+ *   		=> 반드시 : true / false만 사용이 가능
+ *   					============= 소문자만 가능
+ *   					TRUE / True (Python)
+ *   		=> 비교연산자
+ *   		   boolean b = 6 < 7 => true
+ *   		   if(boolean)
+ *   		=> 로그인 / 아이디중복체크 / 검색어 / 장바구니 / 댓글
+ *   	byte => 네트워크 전송 => 바이트, 파일 전송
+ *   	short => C언어 호환 => 사용 빈도가 없다
+ *   	일반 정수 : int
+ *   	일반 실수 : double
+ *   	문지 : 값 설정 '문자 한 개'
+ *   			=> '홍' => 한글은 1 글자당 2byte
+ *   	실수 => double => 데이터형 중에 가장 큰 데이터형
+ *   			=> boolean 은 숫자가 아니다
+ *   
+ *   	// final => 상수
+ *   
+ *   	값 교환
+ *   
+ *   	int a = 10;
+ *   	int b = 20;
+ *    
+ *    	a = b; a = 20
+ *    	b = a; b = 20
+ *    
+ *    	int temp = a;
+ *    	a = b
+ *    	b = temp
  * 
 */
 public class 변수_4 {
 	public static void main(String[] args) {
+		int a = 10;
+		a = 20;
 		
 	}
 
