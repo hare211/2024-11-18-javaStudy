@@ -58,14 +58,97 @@
  *   			   javac는 자동 처리 => java(실행) => ctrl + f11
  *   
  *   	6 page : 개발 환경 구축
+ *   
  *   	1. JDK : jdk.java.net/17 (다운로드 위치)
  *   	   => oracle / openjdk (무료)
  *   			=> 1.8 이상은 유료
+ *   				=== 호환성이 가장 좋다 (SUN)
+ *   			=> Spring Framework => 11버전까지 사용이 가능
+ *   			   Spring - Boot => 17버전 이후
+ *   			=> 버전 호환 단점
+ *   	2. 환경 설정
+ *   	   내 PC => 속성 => 고급 시스템 설정 => 환경 변수 선택
+ *   	   => 시스템 설정
+ *   		  classpath : .;c:\jdk17.0.2\lib
+ *   		  path : c:\jdk17.0.2\bin
+ *   	   => 리눅스 : .bashrc
+ *   	3. 편집기
+ *   		=> Eclipse : IBM => 통합 개발 툴 (IDE) => 무료
+ *   			=> Back-End (Java / Web / Spring)
+ *   			=> eclipse.org
+ *   		=> 인텔리J : Back-End / Front-End
+ *   			=> 무료 / 유료
+ *   		=> File => new => JavaProject 선택 => 프로젝트 풀더 생성
+ *   			=> src 안에 클래스를 생성하여 사용
+ *   						====
+ *   						| 프로그램의 시작점 => main
+ *   
+ *   		주의점) ==> 19 page
+ *   	1. 자바 파일명과 클래스명은 동일해야 된다
+ *   	2. 대소문자를 구분
+ *   			*** 자바 개발자의 약속
+ *   				1) 클래스명은 대문자로 시작한다
+ *   					MainClass => 헝거리언식 표기법
+ *   					Main_class
+ *   				2) 변수 / 메소드 => 소문자로 시작
+ *   				3) 상수 => 전체를 대문자
+ *   				4) 변수는 가급적이면 의미를 부여
+ *   					a
+ *   					movie_name
+ *   
+ *   					a, b, c
+ *   					kor, eng, math(3~7)
+ *   	3. 문장이 종료 (명령어) => ; => .
+ *   	   오라클 => ;
+ *   	4. 변수 : 변경이 가능
+ *   	   int age;
+ *   	   상수 : 변경이 불가능
+ *   	   final int AGE;
+ *   	   리터럴 : 실제 저장 된 값
+ *   	   age = 20;
+ *   
+ *   	=> 23 page
+ *   	자바의 구성 요소 
+ *   	public ClassName{ => 클래스 시작
+ *   		// 프로그램 시작점 => 모든 프로그램은 반드시 main 1개가 존재
+ *   		public static void main(String[] args){ => 메소드 시작
+ *   			=> 기능 수행 => 소스 코딩
+ *   		} => 메소드 종료
+ *   	} => 클래스 종료
+ *   
+ *   	확장
+ *   	public class ClassName{
+ *   		=================
+ *   			변수
+ *   		=================
+ *   			생성자 => 변수의 초기화
+ *   		=================
+ *   			사용자 정의 메소드
+ *   			=> 게시판 목록
+ *   			=> 게시판 등록
+ *   			=> 게시판 상세
+ *   			=> 게시판 수정
+ *   			=> 게시판 삭제
+ *   		=================
+ *   			main() => CBD => 조립식
+ *   		=================
+ *   
+ *   		22page
+ *   			=> 들여쓰기
+ *   			class A
+ *   			{
+ *   				public static void main()
+ *   				{
+ *   				}
+ *   			}
+ *   		23page : 주석 => 컴파일 예외
  *   	
 
  */
 public class 자바소개_특징 {
+	// 자동으로 호출 => 시작 / 종료
 	public static void main(String[] args) {
+		System.out.println("Hello Java!!");
 		
 	}
 
