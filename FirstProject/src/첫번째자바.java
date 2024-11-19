@@ -9,7 +9,7 @@
 			|			|						| 
 					연산자 / 제어문				명령프롬프트 : Application
 												문법
-											브라우저 출력 : Web Application
+											브라우저 출력 : Web Application 
 												주력
 											모바일 출력 : Mobile Application
 											Spring : Java / Kotlin  
