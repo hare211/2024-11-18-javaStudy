@@ -142,13 +142,28 @@
  *   				}
  *   			}
  *   		23page : 주석 => 컴파일 예외
+ *   
+ *   		HTML <!-- -->
+ *   		CSS //
+ *   		Python # , """
+ *   				   """
+ *   		JSP <%-- --%>
  *   	
 
  */
 public class 자바소개_특징 {
 	// 자동으로 호출 => 시작 / 종료
 	public static void main(String[] args) {
-		System.out.println("Hello Java!!");
+		
+		System.out.println("Hello");
+		System.out.println("Hello");
+		System.out.println("Hello");
+		System.out.println("Hello");
+		System.out.println("Hello");
+		System.out.println("Hello");
+		System.out.println("Hello");
+		System.out.println("Hello");
+		System.out.println("Hello");
 		
 	}
 
