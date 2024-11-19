@@ -18,7 +18,7 @@
  *										==== 어려운 부분을 제거
  *										주소 / 포인터 / 구조체
  *							=> 주소 / 포인터 => HW
- *							=> SW => 고급언어 
+ *							=> SW => 고급언어  
 */
 public class 변수정리 {
 	public static void main(String[] args) {
