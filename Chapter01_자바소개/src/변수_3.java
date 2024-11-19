@@ -27,19 +27,19 @@ public class 변수_3 {
 		int korScore = 90;
 		int mathScore =  90;
 		int engScore = 90;
-		int sum = 270;
+		int total = 270;
 		double average = 90.0;
 		char grade = 'A';
 		int rank = 2;
 		
 		System.out.println(studentCount + "명");
-		System.out.println(korScore);
-		System.out.println(mathScore);
-		System.out.println(engScore);
-		System.out.println(sum);
-		System.out.println(average);
-		System.out.println(grade);
-		System.out.println(rank);
+		System.out.println("국어점수 : " + korScore);
+		System.out.println("수학점수 : " + mathScore);
+		System.out.println("영어점수 : " + engScore);
+		System.out.println("총점 : " + total);
+		System.out.println("평균 : " + average);
+		System.out.println("학점 : " + grade);
+		System.out.println("등수 : " + rank);
 		
 	}
 
