@@ -9,6 +9,18 @@ public class 연산자_이항연산자_비교연산자2 {
 		
 		System.out.println(b);
 		
+		// ==
+		System.out.println(a == b);
+		// !=
+		System.out.println(a != b);
+		// <
+		System.out.println(a < b);
+		// >
+		System.out.println(a > b);
+		// <=
+		System.out.println(a <= b);
+		// >=
+		System.out.println(a >= b);
 		
 	}
 
