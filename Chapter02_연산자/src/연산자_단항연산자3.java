@@ -59,6 +59,7 @@ public class 연산자_단항연산자3 {
 		int a1 = 123456;
 		double d1 = 123456.78;
 		int res = (int)((d1-a1) * 100);
+		System.out.println(res);
 	}
 
 }
