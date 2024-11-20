@@ -3,7 +3,7 @@
  *		+, -, *, /, %
  *		--		------
 */
-public class 연산자_이행연산자_산술연산자5 {
+public class 연산자_이항연산자_산술연산자5 {
 
 	public static void main(String[] args) {
 		// %
