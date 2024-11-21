@@ -127,7 +127,11 @@ public class 연산자정리 {
 		/*
 		 * 	90 <= score && score < 95
 		*/
+		char sex = 'W';
+		int jumsu = 87;
 		
+		bCheck = (sex == 'W' || jumsu % 2 == 0);
+		System.out.println(bCheck);
 	}
 	
 	
