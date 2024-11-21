@@ -4,6 +4,8 @@
 
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 public class 자바제어문_단일조건문2 {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
@@ -21,7 +23,25 @@ public class 자바제어문_단일조건문2 {
 		System.out.println(num2);
 		System.out.println(op);
 		
-		
+		if (op == '+') {
+			System.out.printf("%d + %d = %d\n", num1, num2, num1 + num2);
+		}
+		if (op == '-') {
+			/*JOptionPane.showMessageDialog(null,
+					num1 + "-" + num2 + "=" + (num1 - num2));*/
+			System.out.printf("%d - %d = %d\n", num1, num2, num1 - num2);
+		}
+		if (op == '*') {
+			System.out.printf("%d * %d = %d\n", num1, num2, num1 * num2);
+		}
+		if (op == '/') {
+			if (num2 == 0) {
+				System.out.println("0 으로 나눌 수 없습니다");
+			}
+			if (num2 != 0) {
+				System.out.printf("%d / %d = %d\n", num1, num2, num1 / num2);
+			}		
+		}
 	}
 
 }
