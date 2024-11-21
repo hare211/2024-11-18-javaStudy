@@ -52,7 +52,7 @@ public class Prac {
 		} else if (month == 1 || month == 2 || month == 12) {
 			System.out.println("겨울");
 		} else {
-			System.out.println("잘 못된 입력입니다");
+			System.out.println("잘못된 입력입니다");
 		}
 		
 		scanner.close();
