@@ -36,11 +36,15 @@ public class Prac {
 			int one = integer % 10;
 			
 			System.out.println(ten == one ? "10의 자리와 1의 자리가 같습니다" : "10의 자리와 1의 자리가 같지 않습니다");
+			/*
+			 * integer % 11 == 0 -> 10의 자리 = 1의 자리
+			 * integer % 11 != 0 -> 10의 자리 != 1의 자리
+			*/
 		}
 		
 		
 		System.out.println("===================================");
-		System.out.println("달(month)을 입력해주세요 : ");
+		System.out.print("달(month)을 입력해주세요 : ");
 		int month = scanner.nextInt();
 		
 		if (3 <= month && month <= 5) {
