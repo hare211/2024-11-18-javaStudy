@@ -5,13 +5,13 @@ public class 반복문_5 {
 		int sum5 = 0;
 		int sum7 = 0;
 		
-		for (int i = 3; i <= 100; i += 3) {
+		for (int i = 0; i <= 100; i += 3) {
 			sum3 += i;
 		}
-		for (int i = 5; i <= 100; i += 5) {
+		for (int i = 0; i <= 100; i += 5) {
 			sum5 += i;
 		}
-		for (int i = 7; i <= 100; i += 7) {
+		for (int i = 0; i <= 100; i += 7) {
 			sum7 += i;
 		}
 		
