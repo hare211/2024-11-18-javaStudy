@@ -28,6 +28,8 @@ public class 반복문_10 {
 	//System.out.println("몇 번째 위치 : " + (c - 64));
 	
 	int index = 1;
+	
+		
 	for (char ch = 'A'; ch <= 'Z'; ch++) {
 		if (ch == c) {
 			break;
