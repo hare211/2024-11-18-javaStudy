@@ -87,9 +87,9 @@ public class 반복문_문제 {
 		/*int count = 0;
 		for (int i = 2; i < 31; i += 2) {
 			
-			System.out.print(i + " ");
+			System.out.print(i + " "); // System.out.printf("%2d\t", i); or ("%02d\t, i) => 두 칸씩 채워서, 정렬해서 출력
 			count++;
-			if (count % 3 == 0) {
+			if (count % 3 == 0) { // (i % 3 == 0) 으로 하면 count 변수 잡지 않아도 됨 for 문 초기값 1, 범위 i <= 30으로
 				System.out.println();
 			}
 		}*/
@@ -104,6 +104,16 @@ public class 반복문_문제 {
 			sum += i;
 		}
 		System.out.println(sum); */
+		
+		// 8번 다른 풀이
+		/*int sum = 0;
+		for (int i = 1; i <= 10; i++) {
+			if (i % 2 == 0) {
+				sum -= i;
+			} else {
+				sum += i;
+			}
+		} System.out.println(sum); */
 		
 		// 9번
 		/*for (int i = 1; i < 11; i++) {
