@@ -107,15 +107,13 @@ public class Ex {
 		System.out.println(sum); */
 		
 		// 9번
-		for (int i = 1; i < 11; i++) {
+		/*for (int i = 1; i < 11; i++) {
 			if (i % 3 == 0) {
 				continue;
 			} else {
 				System.out.print(i + " ");
 			}
-			
-			
-		}
+		}*/
 	}
 
 }
