@@ -18,9 +18,11 @@ public class 자바선택문_2 {
 		case 9, 10, 11:
 			System.out.println(month + "월은 가을입니다.");
 			break;
-		case 1, 2, 12:
+		case 1, 2, 12:                                                                                                                                                                                                                                                        
 			System.out.println(month + "월은 겨울입니다.");
 		}
+		// default / else => 다른 값을 입력하거나 잘못된 입력
+		// => 고정된 값이면 생략 가능
 	}
 
 }
