@@ -1,7 +1,7 @@
 import java.util.Iterator;
 import java.util.Scanner;
 
-public class Ex {
+public class 반복문_문제 {
 	public static void main(String[] args) {
 		
 		// 1번
@@ -24,7 +24,6 @@ public class Ex {
 			break;
 		default:
 			System.out.println("F 학점입니다.");
-			break;
 		} */
 		
 		// 2번
