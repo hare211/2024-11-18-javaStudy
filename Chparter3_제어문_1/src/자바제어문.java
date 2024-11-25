@@ -121,7 +121,14 @@ public class 자바제어문 {
 		} else if (op == '*') {
 			System.out.println(num1 + " * " + num2 + " = " + (num1 * num2));
 		} else if (op == '/') {
-			System.out.println(num1 + " / " + num2 + " = " + (num1 / num2));
+			if (num2 == 0) {
+				// 오류 처리
+				System.out.println("0 으로 나눌 수 없습니다");
+			} else {
+				System.out.println(num1 + " / " + num2 + " = " + (num1 / num2));
+			}
+		} else {
+			System.out.println("잘못된 입력입니다");
 		}
 		
 		
