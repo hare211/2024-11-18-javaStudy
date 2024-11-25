@@ -121,8 +121,16 @@ public class 반복문_문제 {
 				continue;
 			} else {
 				System.out.print(i + " ");
+			} */
+			
+		// 9번 다른풀이
+		/*for (int i = 1; i <= 10; i++) {
+			if (i % 3 == 0) {
+				System.out.println(i + " ");
 			}
+			
 		}*/
+		
 		scanner.close();
 	}
 
