@@ -113,6 +113,7 @@ public class 반복문_문제 {
 				System.out.print(i + " ");
 			}
 		}*/
+		scanner.close();
 	}
 
 }
