@@ -51,7 +51,7 @@ public class 반복문_문제 {
 			if (num2 == 0) {
 				System.out.println("0 으로 나눌 수 없습니다.");
 			} else {
-				System.out.println(num1 + " / " + num2 + " = " + (num1 / num2));
+				System.out.println(num1 + " / " + num2 + " = " + (num1 / (double)num2));
 				break;
 			}
 		} */
