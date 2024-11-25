@@ -64,7 +64,7 @@ public class 반복문_문제 {
 		System.out.println("2 + 4 +...+ 100 의 합 : " + sum);
 		
 		// 4번
-		for (int i = 5; i < 101; i += 5) {
+		for (int i = 5; i < 51; i += 5) {
 			System.out.print(i + " ");
 		}
 		
