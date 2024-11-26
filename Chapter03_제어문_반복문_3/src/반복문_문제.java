@@ -12,7 +12,7 @@ public class 반복문_문제 {
 		// 2 번
 		/*
 		char ch = ' ';
-		if (!(ch == ' ' && ch == '	')) {
+		if (!(ch == ' ' && ch == '\t')) {
 		} */
 		
 		// 3 번
@@ -35,7 +35,6 @@ public class 반복문_문제 {
 					System.out.printf("[%d, %d]", i, j);
 					System.out.println();
 				}
-				
 			}
 			
 		} */
@@ -63,6 +62,29 @@ public class 반복문_문제 {
 			}
 			
 		} */
+		
+		// 6 번 다른 풀이
+		/*
+		while (true) {
+			System.out.print("첫 번째 정수를 입력해주세요 : ");
+			int start = scanner.nextInt();
+			System.out.print("두 번째 정수를 입력해주세요 : ");
+			int end = scanner.nextInt();
+			
+			if (start > end) {
+				System.out.println("첫 번째 정수는 두 번째 정수보다 값이 작아야 합니다. 다시 입력해주세요.");
+				continue;
+			}
+			for (int i = start; i <= end; i++) {
+				for (int j = start; j <= end; j++) {
+					System.out.println(start + " * " + end + " = " + start * end);
+					start++;
+				}
+			}
+			break;
+		}
+		*/
+		
 		
 		// 7 번
 		/*
@@ -92,7 +114,8 @@ public class 반복문_문제 {
 			} else if (i % 3 == 0 && i % 6 != 0) {
 				sum += i;
 			}
-		} */
+		} System.out.println(sum);
+		*/
 		
 		// 10 번
 		/*
@@ -101,7 +124,8 @@ public class 반복문_문제 {
 			if (i % 4 == 0) {
 				sum += i;
 			}
-		} */
+		} System.out.println(sum);
+		*/
 		
 		// 11 번
 		
@@ -188,7 +212,7 @@ public class 반복문_문제 {
 		*/
 		
 		// 17 번
-		
+		/*
 		char c = 'A';
 		for (int i = 1; i <= 5; i++) {
 			for (int j = 1; j <= 5; j++) {
@@ -197,6 +221,7 @@ public class 반복문_문제 {
 			c++;
 			System.out.println();
 		}
+		*/
 		
 		
 		
@@ -227,8 +252,8 @@ public class 반복문_문제 {
 		
 		
 		
-		
+		}
 		
 	}
 
-}
+
