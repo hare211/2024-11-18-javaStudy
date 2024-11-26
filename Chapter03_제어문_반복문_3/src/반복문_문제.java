@@ -39,7 +39,7 @@ public class 반복문_문제 {
 			
 		} */
 		
-		// 6 번
+		// 6 번 (문제 잘못봄)
 		Scanner scanner = new Scanner(System.in);
 		/*
 		System.out.print("첫 번째 정수를 입력해주세요 : ");
@@ -103,7 +103,7 @@ public class 반복문_문제 {
 			
 		} */
 		
-		// 9 번
+		// 9 번 (문제 잘못봄)
 		/*
 		int sum = 0;
 		for (int i = 0; i < 13; i++) {
@@ -188,15 +188,17 @@ public class 반복문_문제 {
 		
 		/*
 		for (int i = 1; i < 6; i++) {
-			for (int j = 1; j < 5; j++) {
+			for (int j = 1; j < 6; j++) {
 				if (i == j) {
 					System.out.print(i);
+				} else {
+					System.out.print("#");
 				}
-				System.out.print("#");
 			}
 			System.out.println();
 		}
 		*/
+		
 		
 		// 16 번
 		/*
