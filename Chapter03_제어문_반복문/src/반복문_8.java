@@ -1,4 +1,6 @@
-
+// 10개의 정수를 추출해서 최소값,최대값을 구하는 프로그램 
+// 1~100사이 
+// 50 56 57 90 87  67 56 34 23 78 
 public class 반복문_8 {
 	public static void main(String[] args) {
 		

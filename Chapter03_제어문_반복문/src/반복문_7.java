@@ -1,3 +1,10 @@
+// 무한루프 
+/*
+ *    컴퓨터 => 난수 : 1~100사이의 정수 추출 
+ *    => 맞추는 게임 => 힌트 : UP/DOWN
+ *    난수 => 58
+ *    사용자 입력> 50 => UP 
+ */
 import java.util.Scanner;
 
 public class 반복문_7 {
