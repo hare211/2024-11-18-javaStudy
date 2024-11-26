@@ -251,11 +251,11 @@ public class 반복문_문제 {
 		
 		
 		
-		 int n = 5; // 패턴의 크기 (행과 열의 개수)
+		 int n = 5; 
 
-	        for (int i = 0; i < n; i++) { // 행 반복
-	            for (int j = 0; j < n; j++) { // 열 반복
-	                // 조건에 따라 기호 출력
+	        for (int i = 0; i < n; i++) { 
+	            for (int j = 0; j < n; j++) { 
+	                
 	                if (i == j || i + j == n - 1) {
 	                    System.out.print("*");
 	                } else if ((i + j) % 2 == 0) {
@@ -264,7 +264,7 @@ public class 반복문_문제 {
 	                    System.out.print(" ");
 	                }
 	            }
-	            System.out.println(); // 한 행 끝나면 줄바꿈
+	            System.out.println(); 
 	        }
 		
 		
