@@ -1,7 +1,7 @@
 /*
  * 	while 문 : 반복횟수가 지정이 안 된 상태
  * 	
- * 	형식)
+ * 	형식) gitHub
 */
 public class 반복문_4 {
 	public static void main(String[] args) {
