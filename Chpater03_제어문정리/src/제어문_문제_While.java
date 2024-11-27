@@ -78,6 +78,15 @@ public class 제어문_문제_While {
 		*/
 		
 		// 6 번
+		/*
+		while (true) {
+			if (9 < num || num < 1) {
+				System.out.println("1 ~ 9 사이 정수 다시 입력");
+			}
+			if (0 < num && num < 10 ) {
+				break;
+			}
+		}*/
 		
 		int i = 1;
 		int n = 1;
