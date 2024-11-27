@@ -32,7 +32,7 @@ public class 제어문_문제_While {
 		*/
 		
 		// 3 번
-		
+		/*
 		int i = 1;
 		while (i < 101) {
 			if (i % 4 == 0 || i % 7 == 0) {
@@ -40,6 +40,110 @@ public class 제어문_문제_While {
 				i++;
 			}
 		}
+		*/
+		
+		// 4 번
+		/*
+		int i = 1;
+		while (i < 101) {
+			if (i % 10 == 3 || i % 10 == 6 || i % 10 == 9) {
+				System.out.print(i + " ");
+				i++;
+			}
+		}
+		*/
+		
+		// 5 번
+		/*
+		System.out.print("문자열 입력 : ");
+		String str = scanner.nextLine();
+		int count = 0;
+		while (true) {
+			if (str.contains("a")) {
+				count++;
+			}
+			
+		}
+		*/
+		
+		// 6 번
+		/*
+		int i = 1;
+		int n = 1;
+		int n1 = 0;
+		System.out.print("정수 입력 1 ~ 9 : ");
+		int num = scanner.nextInt();
+		while (i < 101) {
+			
+			if (n1 > 11) {
+				n1 = 0;
+				n++;
+			}
+		
+			if (n + n1 == num) {
+				System.out.print(n + " " + n1 + ", ");
+			}
+			
+			n1++;
+			i++;
+		}
+		*/
+		
+		// 7 번
+		/*
+		int i = 10;
+		while (i < 21) {
+			System.out.print(i + " ");
+			i++;
+		}
+		*/
+		// 8 번
+		/*
+		int i = 20;
+		while (i > 9) {
+			System.out.print(i + " ");
+			i--;
+		}
+		*/
+		
+		// 9 번
+		
+		/*
+		int i = 0;
+		int max = 0;
+		while (i < 5) {
+			System.out.print("정수 입력 : ");
+			int num = scanner.nextInt();
+			if (num > max) {
+				max = num;
+			}
+			++i;
+		}
+		System.out.println("가장 큰 정수 : " + max);
+		*/
+		
+		// 10 번
+		/*
+		int i = 0;
+		int maxLength = 0;
+		String maxLengthString = "";
+		int sumLength = 0;
+		
+		while (i < 3) {
+			System.out.print("문자열 입력 : ");
+			String str = scanner.nextLine();
+			if (str.length() > maxLength) {
+				maxLengthString = str;
+			}
+			sumLength += str.length();
+			i++;
+		}
+		System.out.println("가장 긴 문자열 : " + maxLengthString);
+		
+		System.out.println("문자열 길이 합 : " + sumLength);
+		*/
+	
+		
 		
 	}
 	
