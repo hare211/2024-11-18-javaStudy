@@ -58,16 +58,27 @@ public class 제어문_문제_While {
 		System.out.print("문자열 입력 : ");
 		String str = scanner.nextLine();
 		int count = 0;
-		while (true) {
-			if (str.contains("a")) {
+		int i = 0;
+		while (i < str.length()) {
+			char c = str.charAt(i);
+			if (c == 'a') {
+				count++;
+			} else if (c == 'e') {
+				count++;
+			} else if (c == 'i') {
+				count++;
+			} else if (c == 'u') {
+				count++;
+			} else if (c == 'o') {
 				count++;
 			}
-			
+			i++;
 		}
+		System.out.println(count);
 		*/
 		
 		// 6 번
-		/*
+		
 		int i = 1;
 		int n = 1;
 		int n1 = 0;
@@ -81,13 +92,13 @@ public class 제어문_문제_While {
 			}
 		
 			if (n + n1 == num) {
-				System.out.print(n + " " + n1 + ", ");
+				System.out.printf("[%d%d]", n, n1);
 			}
 			
 			n1++;
 			i++;
 		}
-		*/
+		
 		
 		// 7 번
 		/*
@@ -105,6 +116,11 @@ public class 제어문_문제_While {
 			i--;
 		}
 		*/
+		
+		
+		// 문자열 입력을 받아 거꾸로 출력
+		// 이미지를 거꾸로 출력하는 프로그램 작성
+		
 		
 		// 9 번
 		
