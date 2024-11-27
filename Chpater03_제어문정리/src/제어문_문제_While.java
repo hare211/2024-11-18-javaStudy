@@ -158,6 +158,7 @@ public class 제어문_문제_While {
 			System.out.print("문자열 입력 : ");
 			String str = scanner.nextLine();
 			if (str.length() > maxLength) {
+   				maxLength = str.length();
 				maxLengthString = str;
 			}
 			sumLength += str.length();
