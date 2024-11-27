@@ -21,7 +21,7 @@ public class 문자열_6 {
 		
 		System.out.println(data.substring(data.lastIndexOf(".") + 1));
 		*/
-		
+		/*
 		String data = "ID : admin, PW : 1234";
 		String id = data.substring(data.indexOf(":") + 1, data.indexOf(","));
 		
@@ -46,6 +46,13 @@ public class 문자열_6 {
 		String str = "Hello Java";
 		str = str.substring(str.indexOf("J"));
 		System.out.println(str);
+		*/
+		
+		String name = "hare, cage, green, dash";
+		
+		String tag = name.substring(name.indexOf("hare"), name.indexOf(", dash"));
+		
+		System.out.println(tag.trim());
 	}
 
 }
