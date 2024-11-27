@@ -25,10 +25,12 @@ public class 문자열_2 {
 			// 곡명
 			Elements title = doc.select("table.list-wrap a.title");
 			for (int j = 0; j < title.size(); j++) {
-				//if (title.get(j).text().contains(findData)) {
-				if (title.get(j).text().startsWith(findData)) {
+				// => 데이터가 많이 있어야 => 프로그램
+				//if (title.get(j).text().contains(findData)) // %검색어%
+				//if (title.get(j).text().startsWith(findData)) // 검색어% 
+				if (title.get(j).text().endsWith(findData)) {	// %검색어
 					System.out.println((k) + ". " + title.get(j).text());
-					Thread.sleep(2000);
+					//Thread.sleep(2000);
 					k++;
 				}
 			}
