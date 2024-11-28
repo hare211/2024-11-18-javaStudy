@@ -23,6 +23,7 @@ public class 문자열_5 {
 		}
 		System.out.println(change);
 		*/
+		
 		for (int i = 0; i < str.length(); i++) {
 			char c = str.charAt(i);
 			if ('A' <= c && c <= 'Z') {
@@ -35,7 +36,6 @@ public class 문자열_5 {
 			}
 		}
 		System.out.println(change);
-		
 		
 		/*
 		System.out.println(new StringBuilder(str).reverse());
