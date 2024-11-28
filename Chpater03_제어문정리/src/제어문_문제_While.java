@@ -112,7 +112,7 @@ public class 제어문_문제_While {
 		// 7 번
 		/*
 		int i = 10;
-		while (i < 21) {
+		while (i < 21) { 
 			System.out.print(i + " ");
 			i++;
 		}
