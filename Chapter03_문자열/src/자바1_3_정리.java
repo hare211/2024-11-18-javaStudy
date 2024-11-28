@@ -88,14 +88,19 @@ public class 자바1_3_정리 {
 		System.out.print("일 입력 : ");
 		int day = scanner.nextInt();
 		*/
-		
+		/*
 		int year = userInput("년도");
 		int month = userInput("월");
 		int day = userInput("일");
 		
 		System.out.println(year + "년 " + month + "월 " + day + "일");
+		*/
 		
+		String s = "";
+		
+		System.out.println(s.compareTo("dwq"));
 				
+		System.out.println(s.equals("d"));
 		
 		
 		
