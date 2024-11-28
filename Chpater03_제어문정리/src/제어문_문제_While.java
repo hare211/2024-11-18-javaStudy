@@ -158,11 +158,7 @@ public class 제어문_문제_While {
 			System.out.print("문자열 입력 : ");
 			String str = scanner.nextLine();
 			if (str.length() > maxLength) {
-<<<<<<< HEAD
-				maxLength = str.length;
-=======
    				maxLength = str.length();
->>>>>>> a3aae43e06b4d35f91cf2d47fcb9a7255cbda271
 				maxLengthString = str;
 			}
 			sumLength += str.length();
@@ -170,7 +166,7 @@ public class 제어문_문제_While {
 		}
 		System.out.println("가장 긴 문자열 : " + maxLengthString);
 		
-		System.out.println("문자열 길이 합 : " + sumLength);
+		System.out.println("문자열 길이 합 : " + sumLength); 
 		*/
 	
 		
