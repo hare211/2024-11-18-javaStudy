@@ -43,13 +43,42 @@
  * 				=> 유효성 검사
  * 		2) charAt => 원하는 위치의 문자 한 개 추출
 */
+import java.util.Scanner;
 public class 문자열_1 {
 	public static void main(String[] args) {
 		String msg = "Hello Java";
-		int len = msg.indexOf('J');
-		System.out.println(len);
-		len = msg.indexOf("Java");
-		System.out.println(len);
+//		int len = msg.indexOf("Java");
+//		System.out.println(len);
+		// 대소문자 구분
+//		if(msg.contains("va"))
+//		{
+//			System.out.println("포함되어 있습니다");
+//		}
+//		else
+//		{
+//			System.out.println("포함되지 않는 문자입니다");
+//		}
+//		if(msg.startsWith("Hello"))
+//		{
+//			System.out.println("Yes");
+//		}
+//		else
+//		{
+//			System.out.println("No");
+//		}
+
+		
+		String[] data = {
+				"자바와 JSP",
+				"혼자 배우는 자바",
+				"스프링과 자바",
+				"자바의 정석",
+				"자바의 기초",
+				"스프링 부트와 자바"
+		};
+		Scanner scanner =new Scanner(System.in);
+		System.out.print("검색어 입력 : ");
+		
 	}
 
 }
