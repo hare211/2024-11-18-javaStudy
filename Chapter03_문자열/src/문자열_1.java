@@ -43,6 +43,8 @@
  * 				=> 유효성 검사
  * 		2) charAt => 원하는 위치의 문자 한 개 추출
 */
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 public class 문자열_1 {
 	public static void main(String[] args) {
@@ -67,7 +69,7 @@ public class 문자열_1 {
 //			System.out.println("No");
 //		}
 
-		
+		/*
 		String[] data = {
 				"자바와 JSP",
 				"혼자 배우는 자바",
@@ -78,7 +80,29 @@ public class 문자열_1 {
 		};
 		Scanner scanner =new Scanner(System.in);
 		System.out.print("검색어 입력 : ");
+		*/
 		
+		int a = 10;
+		int b = 20;
+		System.out.println(a + b);
+		System.out.println(String.valueOf(a) + String.valueOf(b));
+		System.out.println("10" + "20");
+		
+		String s = "s";
+		
+		
+		/*
+		Map<String, Integer> map = new HashMap<>();
+		
+		map.put("apple", 2);
+		map.put("melon", 4);
+		map.put("banana", 3);
+		
+		for (Map.Entry<String, Integer> entry : map.entrySet()) {
+			System.out.println(entry.getKey() + " " + entry.getValue());
+			
+		}
+		*/
 	}
 
 }
