@@ -117,7 +117,7 @@ public class 제어문_문제_While {
 			i++;
 		}
 		*/
-		// 8 번
+		// 8 번 
 		/*
 		int i = 20;
 		while (i > 9) {
