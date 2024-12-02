@@ -75,7 +75,7 @@ public class 배열문제 {
 		*/
 		
 		// 7 번
-		/*
+		
 		int[] arr = new int[10];
 		
 		int total = 0;
@@ -87,7 +87,6 @@ public class 배열문제 {
 		}
 		avg = total / (double) arr.length;
 		System.out.println(Arrays.toString(arr) + "\n평균 : " + avg);
-		*/
 		
 		// 8 번
 		/*
@@ -96,12 +95,13 @@ public class 배열문제 {
 		System.out.println(arr[1]);
 		
 		// 9 번
-		
+		int index = 0;
 		for (int i = 0; i < arr.length; i++) {
 			if (arr[i] == 60) {
-				System.out.println(arr[i]);
+				index = i;
 			}
 		}
+		System.out.println("index = " + index)
 		*/
 		
 		
