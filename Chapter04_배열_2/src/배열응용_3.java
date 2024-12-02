@@ -18,7 +18,7 @@ public class 배열응용_3 {
 		// Calendar 추상 클래스 => new 를 사용하지 못한다
 		cal.set(Calendar.YEAR, year);
 		cal.set(Calendar.MONTH, month - 1); // 0 부터 
-		cal.set(Calendar.DATE, day);
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	cal.set(Calendar.DATE, day);
 		
 		char[] strWeek = {' ', '일', '월', '화', '수', '목', '금', '토'}; //
 		// week = 0;, week = 1 => week = 1번부터
