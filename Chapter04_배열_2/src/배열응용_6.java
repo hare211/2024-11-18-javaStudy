@@ -30,7 +30,6 @@ public class 배열응용_6 {
 		
 		System.out.print(Arrays.toString(arr));
 		
-		
 	}
 	
 	
