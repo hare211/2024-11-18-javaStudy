@@ -19,11 +19,29 @@ public class 배열문제 {
 		int[] arr = {50, 45, 35, 12, 70};
 		int sum = 0;
 		for (int i = 0; i < arr.length; i++) {
-			System.out.println("사원(" + (i + 1) + ")" + arr[i]);
+			System.out.println("사원(" + (i + 1) + ") 점수 : " + arr[i]);
 			sum += arr[i];
 		}
 		System.out.println("총점 : " + sum + "\n평균 : " + (sum / (double) arr.length));
+		
+		int max = arr[0];
+		int min = arr[0];
+		int maxI = 0;
+		int minI = 0;
+		for (int i = 0; i < arr.length; i++) {
+			if (max < arr[i]) {
+				max = arr[i];
+				maxI = i + 1;
+			}
+			if (min > arr[i]) {
+				min = arr[i];
+				minI = i + 1;
+			}
+		}
+		
+		System.out.println("실적이 제일 큰 사원 : " + maxI + " 번 사원 | 점수 : " + max + "\n실적이 제일 작은 사원 : " + minI + " 번 사원 | 점수 : " + min);
 		*/
+		
 		
 		// 3 번
 		/*
@@ -68,49 +86,28 @@ public class 배열문제 {
 		
 		// 6 번
 		
-		int num = 0;
-		int[] count = new int[10];
-		for (int i = 0; i < 100; i++) {
-			num = (int) (Math.random() * 10);
-			if (num == 0) {
-				count[0]++;
-			} else if (num == 1) {
-				count[1]++;
-			} else if (num == 2) {
-				count[2]++;
-			} else if (num == 3) {
-				count[3]++;
-			} else if (num == 4) {
-				count[4]++;
-			} else if (num == 5) {
-				count[5]++;
-			} else if (num == 6) {
-				count[6]++;
-			} else if (num == 7) {
-				count[7]++;
-			} else if (num == 8) {
-				count[8]++;
-			} else if (num == 9) {
-				count[9]++;
-			}
+        int[] arr = new int[10];
+        for (int i = 0; i < 100; i++) {
+            int num = (int)(Math.random() * 10);
+            arr[num]++;
+        }
+        System.out.println(Arrays.toString(arr));
+        
+        for (int i = 0; i < arr.length; i++) {
+			System.out.println(i + "의 개수 : " + arr[i]);
 		}
-		
-		for (int i = 0; i < count.length; i++) {
-			System.out.println(i + "의 개수 : " + count[i]);
-		}
-		System.out.println(Arrays.toString(count));
 		
 		
 		// 7 번
-		
+		/*
 		char[] arr = new char[5];
 		
 		for (int i = 0; i < arr.length; i++) {
-			arr[i] = (char) ((char)(Math.random() * 26) + 65);
+			arr[i] = (char) ((int)(Math.random() * 26) + 65);
 		}
 		Arrays.sort(arr);
 		System.out.println(Arrays.toString(arr));
-		
+		*/
 		
 		
 		
