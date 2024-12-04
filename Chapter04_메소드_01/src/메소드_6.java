@@ -15,6 +15,7 @@ public class 메소드_6 {
 	}
 	// 시작 = 종료 = 자동 호출
 	// 사용자 정의는 자동 호출이 안된다
+	// Trace => 디버깅 => F6
 	public static void main(String[] args) {
 		System.out.println("main 시작");
 		swap(10, 20);
