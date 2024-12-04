@@ -51,7 +51,7 @@ public class 배열_1 {
         Scanner scan=new Scanner(System.in);
         int kor1,kor2,kor3;
         int eng1,eng2,eng3;
-        int math1,math2,math3;
+        int math1,math2,math3; 
         int total1,total2,total3;
         double avg1,avg2,avg3;
         // 변수가 많은 경우에는 관리가 어렵다 ==> 한개의 이름으로 제어

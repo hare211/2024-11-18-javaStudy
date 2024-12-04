@@ -117,15 +117,43 @@
  * 			리턴형			매개변수
  * 	------------------------------------------
  * 			O				X
+ * 			String substring(int begin)
+ * 				|				|
+ * 				리턴형			매개변수
  * 	------------------------------------------
  * 			O				X
+ * 			double random()
+ * 			-----		----
  * 	------------------------------------------
  * 			X				O
+ * 			void System.out.println(String s)
+ * 			--- 결과값 없다
  * 	------------------------------------------
- * 			X				X
+ * 			X				X => 사용빈도 거의 없음
+ * 			void System.out.println()
+ * 
+ * 			=> 결과값을 받아서 출력
+ * 			=> 메소드 안에서 출력
+ * 			=> return => void 는 생략이 가능
 */
 public class 메소드_01 {
+	// 4) 리턴형 / 매개변수가 없는 경우
+	// => 메소드 안에서 구구단을 출력
 
+	public static void main(String[] args) {
+	timeTables();
+	
+	} 
+	
+	static void timeTables() {
+		for (int i = 1; i < 10; i++) {
+			for (int j = 2; j < 10; j++) {
+				System.out.printf("%d * %d = %d\t", j, i, j * i);
+			}
+			System.out.println();
+		}
+	}
+	
 }
 
 
