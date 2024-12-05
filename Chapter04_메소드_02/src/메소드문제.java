@@ -111,10 +111,14 @@ public class 메소드문제 {
 	static boolean isLeapYear() {
 		Scanner scanner = new Scanner(System.in);
 		int year = scanner.nextInt();
-		
+		/*
+		 * 4 년마다
+		 * 100 년마다 제외
+		 * 400 년마다
+		*/
         if (year % 4 == 0) {
             if (year % 100 == 0) {
-                return year % 400 == 0; // 400의 배수일 때만 윤년
+                return year % 400 == 0; // 100으로 나눠질 때 400의 배수일 때만 윤년
             }
             return true; // 4의 배수이면서 100의 배수가 아닌 경우 윤년
         }
