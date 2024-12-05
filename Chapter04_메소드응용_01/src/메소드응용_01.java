@@ -54,7 +54,7 @@ public class 메소드응용_01 {
 			}
 			user[0] = input / 100; // 369 / 100 => 3
 			user[1] = (input % 100) / 10;
-			user[3] = input % 10;
+			user[2] = input % 10;
 			// => 코딩테스트 => 화폐 매수 구하기
 			
 			// 오류 처리 => 중복된 수가 없어야 된다, 0을 입력하면 안된다
@@ -72,23 +72,23 @@ public class 메소드응용_01 {
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {
 					if (com[i] == user[j]) {
-						if (i == j) {
+						if (i == j) { // 자릿수 동일
 							s++;
 						} else {
 							b++;
 						}
 					}
 				}
-				}
+			}
 			// 힌트 제공
 			System.out.println("Input Number : " + input);
 			System.out.println("=======================================================");
-			System.out.println("S : ");
+			System.out.print("S : ");
 			for (int j = 0; j < s; j++) {
 				System.out.print("●");
 			}
 			System.out.println();
-			System.out.println("B : ");
+			System.out.print("B : ");
 			for (int j = 0; j < b; j++) {
 				System.out.print("○");
 			}
