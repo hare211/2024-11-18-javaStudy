@@ -88,6 +88,7 @@ public class 메소드응용_달력 {
 	}
 	public static void main(String[] args) {
 		process();
+		
 	}
 
 }
