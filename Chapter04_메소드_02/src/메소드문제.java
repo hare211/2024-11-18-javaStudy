@@ -147,6 +147,7 @@ public class 메소드문제 {
 		
 		int a = scanner.nextInt();
 		
+		System.out.println(a % 2 == 0 ? "짝수" : "홀수");
 		if (a % 2 == 0) {
 			System.out.println(a + "는(은) 짝수입니다.");
 		} else {
@@ -185,7 +186,36 @@ public class 메소드문제 {
 		
 		int week = cal.get(Calendar.DAY_OF_WEEK);
 		System.out.println(year + "년도 " + month + "월 " + day + "일은 " + strWeek[week] + "요일입니다");
+		System.out.printf("%tF%n", cal);
 	} 
+	// 13 번
+	static char WeekData(int year, int month, int day) {
+		char c = ' ';
+		char[] strWeek = {'일', '월', '화', '수', '목', '금', '토'};
+		// 1. 1 년도 1 월 1 일 ~ 전년도까지 총 날 수
+		int total = (year - 1) * 365
+				+ (year - 1) / 4
+				- (year - 1) / 100
+				+ (year - 1) / 400;
+		// 2. 전달까지의 총 날 수
+		int[] lastDay = {31, 28, 31, 30, 31, 30,
+						31, 31, 30, 31, 30, 31};
+		if((year % 4 == 0) && (year % 100 != 0 || year % 400 == 0)) {
+			lastDay[1] = 29;
+		} else {
+			lastDay[1] = 28;
+		}
+		for (int i = 0; i < month; i++) {
+			total += lastDay[i];
+			
+		}
+		// 3. 입력된 일
+		total += day;
+		
+		int week = total % 7;
+		
+		return strWeek[week];
+	}
 	// 14 번
 	static int[] reverseArray(int[] arr) {
 		int[] arrReversed = new int[arr.length];
@@ -242,12 +272,15 @@ public class 메소드문제 {
 //		isEvenOdd();
 //		
 //		// 12 번
-//		dayOfWeek();
+		dayOfWeek();
 //		
 //		
 //		// 13 번
 //		int[] arr = {1,3,5,7,9};
 //		System.out.println(Arrays.toString(reverseArray(arr)));
+		
+//		char c = WeekData(2024, 11, 20);
+//		System.out.println(c);
 //		
 		
 	}
