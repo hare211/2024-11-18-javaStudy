@@ -1,7 +1,6 @@
 package com.sist;
 import java.util.*;
 import java.io.*; // 파일, 네트워크 전송 : 읽기 / 쓰기
-import java.nio.file.spi.FileSystemProvider;
 /*
  * Input / Output => io => 반드시 예외처리
  * 	마지막장 12장
@@ -44,10 +43,44 @@ public class 메소드_2 {
 		System.out.println("=============");
 	}
 	
+	// 명소 목록
+	static void locationList(int page) {
+		String[] location = seoulData.split("\n");
+		
+		final int ROWSIZE = 10;
+		
+		int i = 0;
+		int j = 0;
+		
+		int pageCount = (page * ROWSIZE) - ROWSIZE;
+		
+		for (String s : location) {
+			if (j < 10 && i >= pageCount) {
+				String [] ld = s.split("\\|");
+				System.out.println(ld[0] + "." + ld[1]);
+				j++;
+			}
+			i++;
+		}
+	}
+	
+	static void locationDetail(int locationNo) {
+		String[] location = seoulData.split("\n");
+		// 영화 정보 전체 => \n
+		for (String s : location) {
+			// 영화 한 개 => 정보 => |
+			String[] info = s.split("\\|");
+			if (info[0].equals(String.valueOf(locationNo))) { 
+				System.out.println("명소명 : " + info[1]);
+				System.out.println("명소 설명 : " + info[2]);
+				System.out.println("주소 : " + info[3]);
+			}
+		}
+	}
 	static String[] find(int type, String findData) {
 		// 확인 => 검색된 개수
 		String[] data = seoulData.split("\n");
-		
+	
 		int count = 0;
 		
 		for (String seoul : data) {
@@ -65,6 +98,7 @@ public class 메소드_2 {
 		}
 		// | 배열 크기 확인
 		String[] datum = new String[count];
+		//String[] datum = new String[273]; => switch 문에서 if (s != null) System.out.println(s);
 		
 		int i = 0;
 		
@@ -84,6 +118,7 @@ public class 메소드_2 {
 		
 		return datum;
 	}
+	
 	// 조립 => 사용자 정의 메소드 반드시 호출
 	static void process() {
 		Scanner scanner = new Scanner(System.in);
@@ -99,6 +134,15 @@ public class 메소드_2 {
 				return;
 			case 1:
 				// 고민 => 데이터를 받아서 출력, 메소드 안에서 출력
+				System.out.print("페이지 입력 : ");
+				int page = scanner.nextInt();
+				locationList(page);
+				break;
+			case 2:
+				System.out.print("명소 번호 입력 : ");
+				int locationNo = scanner.nextInt();
+				locationDetail(locationNo);
+				break;
 			case 3, 4:
 				System.out.print("1. 명소 | 2. 주소 : ");
 				int type = scanner.nextInt();
@@ -110,6 +154,7 @@ public class 메소드_2 {
 				for (String s : ss) {
 					System.out.println(s);
 				}
+				break;
 			default:
 				break;
 			}
