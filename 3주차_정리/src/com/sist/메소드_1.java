@@ -13,7 +13,7 @@ import java.io.*;
 */
 public class 메소드_1 {
 	
-	static String movieDate = ""; // 전역변수
+	static String movieData = ""; // 전역변수
 	/*
 	 * 예외처리
 	 * 	=> 예외 복구 try ~ catch(복구)
@@ -31,7 +31,7 @@ public class 메소드_1 {
 				sb.append((char) i);
 			}
 			
-			movieDate = sb.toString();
+			movieData = sb.toString();
 			fr.close();
 		} catch (Exception ex) { // 예외처리
 			// 에러 발생 => 복구
@@ -52,7 +52,7 @@ public class 메소드_1 {
 	 * movieData 배열 info 
 	*/
 	static void movieList(int page) {
-		String[] movie = movieDate.split("\n");
+		String[] movie = movieData.split("\n");
 		
 		final int ROWSIZE = 20; // 시작점
 		
@@ -73,7 +73,7 @@ public class 메소드_1 {
 	}
 	// 상세보기 => 데이터
 	static void movieDetail(int movieNo) {
-		String[] movie = movieDate.split("\n");
+		String[] movie = movieData.split("\n");
 		// 영화 정보 전체 => \n
 		for (String s : movie) {
 			// 영화 한 개 => 정보 => |
@@ -90,26 +90,26 @@ public class 메소드_1 {
 	}
 	// 영화명으로 찾기
 	static void titleFind(String mn)	{
-		String[] movie = movieDate.split("\n");
+		String[] movie = movieData.split("\n");
 		// 영화 정보 전체 => \n
 		for (String s : movie) {
 			// 영화 한 개 => 정보 => |
 			String[] info = s.split("\\|");
 			if (info[1].contains(mn)) {
-				System.out.println(info[1] + "(" + info[4] + ")");
+				System.out.println(info[1] + "[" + info[4] + "]");
 			}
 		}
 		
 	}
 	// 출연진으로 찾기
 	static void actorFind(String actor) {
-		String[] movie = movieDate.split("\n");
+		String[] movie = movieData.split("\n");
 		// 영화 정보 전체 => \n
 		for (String s : movie) {
 			// 영화 한 개 => 정보 => |
 			String[] info = s.split("\\|");
 			if (info[4].contains(actor)) {
-				System.out.println(info[1] + "(" + info[4] + ")");
+				System.out.println(info[1] + " [" + info[4] + "]");
 			}
 		}
 		
