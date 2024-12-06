@@ -102,7 +102,16 @@ public class 메소드_1 {
 		
 	}
 	// 출연진으로 찾기
-	static void actorFind() {
+	static void actorFind(String actor) {
+		String[] movie = movieDate.split("\n");
+		// 영화 정보 전체 => \n
+		for (String s : movie) {
+			// 영화 한 개 => 정보 => |
+			String[] info = s.split("\\|");
+			if (info[4].contains(actor)) {
+				System.out.println(info[1] + "(" + info[4] + ")");
+			}
+		}
 		
 	}
 	public static void process() {
@@ -128,6 +137,10 @@ public class 메소드_1 {
 				System.out.print("영화명 입력 : ");
 				String mn = scanner.next();
 				titleFind(mn);
+			} else if (m == 4) {
+				System.out.print("출연진 입력 : ");
+				String actor = scanner.next();
+				actorFind(actor);
 			}
 		}
 	}
