@@ -22,7 +22,7 @@ class RecipeDetail {
 	String category;
 	int businessNumber;
 	String businessAddress;
-	int ratings;
+	double ratings;
 	String theme;
 	String[] cookImages;
 	int likes;
@@ -61,7 +61,7 @@ class RestaurantDetail {
 	int businessPhoneNum;
 	String typeOfFood;
 	String parkingAvailable;
-	String menu;
+	String[] menu;
 }
 class MovieDetail {
 	String movieImage;
@@ -87,7 +87,7 @@ class ItemDetail {
 	String deliveryType;
 	int points;
 }
-
+// 증감, 누적 등 값이 변한다면 int 형이 편하다
 public class 클래스_문제 {
 
 }
