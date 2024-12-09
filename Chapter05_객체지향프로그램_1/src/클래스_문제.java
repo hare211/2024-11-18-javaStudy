@@ -7,7 +7,7 @@ class HotChart {
 	String albumTitle;
 	String likes;
 }
-class Recipe {
+class Recipe0 {
 	String cookImage;
 	String title;
 	String chefIamge;
