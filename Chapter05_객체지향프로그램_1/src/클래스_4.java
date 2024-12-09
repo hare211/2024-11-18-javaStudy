@@ -38,7 +38,7 @@ class RecipSite {
 			int j = 0;
 			Document doc = Jsoup.connect("https://www.10000recipe.com/recipe/list.html").get();
 			Elements title = doc.select("ul.common_sp_list_ul div.common_sp_caption_tit");
-			Elements chef = doc.select("ul.common_sp_list_ul div.common_sp_caption_rv_name");
+			Elements chef = doc.select("ul.common_sp_list_ul div.common_sp_caption_rv_name"); // CSS 구분자 
 			
 			for (int i = 0; i < title.size(); i++) {
 				recipes[j] = new Recipe();
@@ -48,7 +48,6 @@ class RecipSite {
 				j++;
 				//System.out.println(title.get(i).text());
 				//System.out.println(chef.get(i).text());
-				
 			}
 		} catch (Exception ex) {
 			
