@@ -86,5 +86,8 @@ public class MovieSystem {
 		*/
 	}
 	// 상세보기
+	Movie movieDetail (int no) {
+		return movies[no - 1];
+	}
 	// 검색
 }
