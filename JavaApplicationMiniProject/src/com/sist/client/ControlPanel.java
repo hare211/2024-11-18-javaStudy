@@ -24,7 +24,7 @@ public class ControlPanel extends JPanel{
 		setLayout(null);
 		la1.setBounds(ALLBITS, ABORT, WIDTH, HEIGHT);
 		//			  왼쪽 너비 / 위 너비 / 가로 / 세로 
-		la1.setBounds(57, 15, 80,ㄴ 30); // ID 
+		la1.setBounds(57, 15, 80, 30); // ID 
 		tf.setBounds(95,  15, 200, 30); // ID 입력창
 		add(la1); add(tf);
 		la2.setBounds(10, 50, 80, 30); // Password
