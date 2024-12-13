@@ -24,7 +24,6 @@ public class MusicListPanel extends JPanel implements ActionListener {
 	JTable table;
 	DefaultTableModel model;
 	GenieMusicSystem gms = new GenieMusicSystem();
-	MelonMusicSystem mms = new MelonMusicSystem();
 	public MusicListPanel() {
 		setLayout(null);
 		la = new JLabel("Top 50", JLabel.CENTER);
@@ -56,7 +55,7 @@ public class MusicListPanel extends JPanel implements ActionListener {
 //		b2 = new JButton("Next");
 //		p.add(b1);
 //		p.add(b2);
-
+		
 	}
 	
 	public void musicPrint(int type) {
@@ -72,16 +71,18 @@ public class MusicListPanel extends JPanel implements ActionListener {
 		
 		
 		// 추가
-		  if(type==1)
-		  {
+		  if(type==1) {
 			  gms = new GenieMusicSystem();
 			  la.setText("Genie Top 50");
-		  }
-		  else
-		  {
+			  b1.setEnabled(false);
+			  b2.setEnabled(true);
+		  } else {
 			  gms = new MelonMusicSystem();
 			  la.setText("Melon Top 50");
+			  b2.setEnabled(false);
+			  b1.setEnabled(true);
 		  }
+		  
 		// 추가
 		
 		MusicVO[] musics = gms.musicAllDate();

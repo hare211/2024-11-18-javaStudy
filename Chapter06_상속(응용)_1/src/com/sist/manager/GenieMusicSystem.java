@@ -40,8 +40,29 @@ public class GenieMusicSystem {
 			// 에러 발생 시 복구 / 에러 출력 / 에러를 건너뛴다
 		}
 	}
+	
 	public MusicVO[] musicAllDate() { // 웹 / 윈도우 => 리턴으로 데이터 메인으로 반환
 		return musics;
+	}
+	
+	public MusicVO[] musicFindData (String fd) {
+		int count = 0;
+		for (MusicVO vo : musics) {
+			if (vo.getTitle().contains(fd)) {
+				count++;
+			}
+		}
+		// 동적 배열 생성 => 가변 Collection
+		MusicVO[] music = new MusicVO[count];
+		// 배열 단점 => 메모리 개수 고정
+		int i = 0;
+		for (MusicVO vo : musics) {
+			if (vo.getTitle().contains(fd)) {
+				music[i] = vo;
+				i++;
+			}
+		}
+		return music;
 	}
 	
 }
