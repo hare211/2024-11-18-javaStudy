@@ -40,7 +40,8 @@ package com.sist.exception;
  * 							 NullPointerException
  * 예외를 잡을 수 있는 능력은 상위 클래스일수록 크다
  * => catch(Exception ex)
- * => catch
+ * => 예외처리 전체 / 부분
+ * => 예제
  */
 public class 예외처리_5 {
 
