@@ -53,6 +53,8 @@ public class 클래스종류정리 {
 		String str = "";
 		StringBuffer sb = new StringBuffer();
 		
+		
+		
 		if (obj instanceof Object) {
 			System.out.println("obj는 object 클래스");
 		}
