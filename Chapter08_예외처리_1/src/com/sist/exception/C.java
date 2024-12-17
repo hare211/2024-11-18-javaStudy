@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class C {
 	public static void main(String[] args) {
+		
 		String s = "20";
 		int a = 23;
 		

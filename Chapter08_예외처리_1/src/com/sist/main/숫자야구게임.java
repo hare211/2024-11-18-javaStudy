@@ -90,9 +90,17 @@ public class 숫자야구게임 extends JFrame implements ActionListener{
 				String str = tf.getText(); // 입력한 tf -> str 대입
 				int input = Integer.parseInt(str);
 				
+				if (100 > input || input > 999) {
+					JOptionPane.showMessageDialog(this, "세 자리 정수만 입력하세요.");
+					tf.setText("");
+					tf.requestFocus(); // 커서 깜빡임
+					return; // 메서드 종료
+				}
+				
 				user[0] = input / 100;
 				user[1] = (input % 100) / 10;
 				user[2] = input % 10;
+				
 				if (user[0] == user[1] || user[1] == user[2] || user[0] == user[2]) {
 					JOptionPane.showMessageDialog(this, "중복된 정수는 사용할 수 없습니다.");
 					tf.setText("");
@@ -119,9 +127,15 @@ public class 숫자야구게임 extends JFrame implements ActionListener{
 						}
 					}
 					
-					String hint = "Input Number : " + input + ", Result : " + s + " S - " + b + " B\n";
+					String hint = "Input Number : " + input + ", Result : S - " + s + " B - " + b + "\n";
 					ta.append(hint);
-					
+				
+					if (s == 3) {
+						JOptionPane.showMessageDialog(this, "프로그램을 종료합니다");
+						System.exit(0);
+					}
+					tf.setText("");
+					tf.requestFocus();
 				}
 				
 			} catch (NumberFormatException ex) {
