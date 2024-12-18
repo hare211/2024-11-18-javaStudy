@@ -56,7 +56,7 @@ public class 예외처리_1차정리 {
 		예외처리_1차정리 c = new 예외처리_1차정리();
 		c.display();
 		
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 10; i++) { 
 			double a = (Math.random() * 10) + 1;
 			int b = (int) (Math.random() * 3); 
 			
