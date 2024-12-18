@@ -58,7 +58,7 @@ public class 예외처리_1차정리 {
 		
 		for (int i = 0; i < 10; i++) {
 			double a = (Math.random() * 10) + 1;
-			int b = (int) (Math.random() * 3);
+			int b = (int) (Math.random() * 3); 
 			
 			System.out.printf("%.4f\n", a / b);
 		}
