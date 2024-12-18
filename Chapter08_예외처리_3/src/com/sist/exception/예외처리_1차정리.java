@@ -25,7 +25,7 @@ package com.sist.exception;
  * 				3. 에러 확인 => 소스 코딩 수정
  * 			} catch 문은 필요 시 여러 문 작성 가능
  * 			finally {
- * 				생략 가능
+ * 				생략 가능 
  * 				=> 닫기(파일, 서버, 오라클)
  * 				=> try / catch 상관 없이 무조건 수행
  * 			}
