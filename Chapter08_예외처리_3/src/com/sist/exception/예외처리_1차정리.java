@@ -65,7 +65,7 @@ public class 예외처리_1차정리 {
 //		for (int i = 0; i < 5; i++) {
 //			try {
 //				double a = (Math.random() * 3) + 1;
-//				int b = (int) (Math.random() * 5);
+//				int b = (int) (Math.random() * 5); 
 //				
 //				System.out.printf("%.5f\n", a / b); 
 //			} catch (Exception e) {
