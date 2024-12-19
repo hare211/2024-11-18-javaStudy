@@ -34,5 +34,14 @@ public class 라이브러리_Object_2 {
 		
 		Object obj = 10;
 		int i = (int) obj;
+		/*
+		 * Object obj = 10; => AutoBox => 일반 데이터형과 동일 취급
+		 * int i (int) obj; => UnBox
+		 * int a = (int) 10.5;
+		 * 
+		 * Object / String / Wrapper
+		 */
+		
+		
 	}
 }
