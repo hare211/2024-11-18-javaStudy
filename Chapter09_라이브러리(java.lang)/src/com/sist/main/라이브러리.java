@@ -64,6 +64,8 @@ package com.sist.main;
  *  		=> org.spingframework
  *  
  *  	Java / Oracle / JSP / Spring / Spring-Boot
+ *  			| MyBatis / JPA
+ *  			| Oracle / MySQL(MariaDB)
  *  	------------------------------------------ Back
  *  	HTML / CSS / JavaScript / TypeScript
  *  	-----------------------
@@ -79,8 +81,96 @@ package com.sist.main;
  *  		=> simple-json / bson
  *  	3) 사용자 정의 : 잘 만들어진 클래스 / 자주 쓰이는 클래스
  *  		=> .jar
- *  		=>
+ *  		=> 1차 => JSP(MVC => Spring 형식)
+ *  	===================================================================
+ *  	9장
+ *  	java.lang 패키지
+ *  	1) import 생략 => 자동 추가
+ *  		=> 가장 많이 사용한 라이브러리(String, System)
+ *  	2) 대표 클래스
+ *  		= Object : 모든 클래스의 상위 클래스
+ *  				   ---------- Object 상속을 받는다
+ *  		  public class A extends Object
+ *  						 ---------------> 생략
+ *  		= 모든 클래스에서 사용하는 기능(메서드)
+ *  		= toString() : 객체 주소
+ *  			=> 명시적 / 묵시적
+ *  			A a = new A();
+ *  			 => System.out.println(a.toString())
+ *  			 => System.out.println(a)
+ *  			=> 자주 사용 된다 / 객체의 값이 정상적으로 처리 확인
+ *  			=> 객체를 문자열화 시킨다
+ *  		= clone() : 객체를 복사할 경우
+ *  			=> 객체 복사
+ *  				얕은 복사 => 같은 주소를 이용
+ *  				-------    Call By Reference
+ *  				깊은 복사 => clone => 새로운 메모리에 저장
+ *  				-------    게임(아바타) => prototye
+ *  		= finalize() : 소멸자 => 메모리 해제 시에 자동 호출
+ *  		  --------- System.gc() : 바로 회수
+ *  					프로그램 종료 시에 회수
+ *  		= equals() => 객체 비교 => 재정의(오버라이딩)
+ *  		= hashCode() => 비교
  */
-public class 라이브러리 {
-
+class Student {
+	
+	private String name;
+	private String phone;
+	private String address;
+	
+	// 접근 가능 => 메서드
+	public Student(String name, String phone, String address) {
+		/*
+		 * 지역 변수 / 매개 변수
+		 * 
+		 * 1. 지역 변수, 매개변수 찾기
+		 * 2. 멤버 변수
+		 * 
+		 * ** 지역 변수 우선 순위
+		 */
+		this.name = name;
+		this.phone = phone;
+		this.address = address;
+	}
+	public void print() {
+		System.out.println("이름 : " + name);
+		System.out.println("주소 : " + address);
+		System.out.println("번호 : " + phone);
+	}
+	@Override
+	public String toString() {
+		System.out.println("이름 : " + name);
+		System.out.println("주소 : " + address);
+		System.out.println("번호 : " + phone);
+		return super.toString();
+	}
+	
 }
+public class 라이브러리 {
+	public static void main(String[] args) {
+		Student s1 = new Student("홍길동", "010-1111-1111", "서울");
+		Student s2 = new Student("심청이", "010-2222-2222", "경기");
+		
+		//s1.print();
+		System.out.println(s1); // toString 생략되어있음 -> 객체 출력 시 자동으로 toString() 호출
+		//s2.print();
+		System.out.println(s2.toString());
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
