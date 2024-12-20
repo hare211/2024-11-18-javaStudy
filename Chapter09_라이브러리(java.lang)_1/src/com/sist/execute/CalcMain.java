@@ -21,6 +21,7 @@ public class CalcMain extends JFrame implements ActionListener {
 		
 		la = new JLabel("=");
 		box = new JComboBox();
+		
 		box.addItem("+");
 		box.addItem("-");
 		box.addItem("*");
@@ -58,6 +59,7 @@ public class CalcMain extends JFrame implements ActionListener {
 			int n1 = 0;
 			int n2 = 0;
 			
+			// if 문을 쓰기 어려운 경우 try 문
 			try { // 첫 번째 칸에 문자가 입력되면 지우고 커서 고정
 				String no1 = tf1.getText();
 				n1 = Integer.parseInt(no1);
@@ -67,6 +69,8 @@ public class CalcMain extends JFrame implements ActionListener {
 				return;
 				
 			}
+			
+			// try 문을 나눠서 tf1 에서 오류인지 tf2 에서인지 확인 가능
 			try { // 두 번째 칸에 문자가 입력되면 지우고 커서 고정
 				String no2 = tf2.getText();
 				n2 = Integer.parseInt(no2);
@@ -75,7 +79,31 @@ public class CalcMain extends JFrame implements ActionListener {
 				tf2.requestFocus();
 				return;
 			}				// | Object 형이기 때문에 toString()
-			String op = box.getSelectedItem().toString();
+			String op = box.getSelectedItem().toString(); // 문자로 가져온다
+			
+			switch (op) {
+			case "+":
+				tf3.setText(String.valueOf(n1 + n2));
+				break;
+			case "-":
+				tf3.setText(String.valueOf(n1 - n2));
+				break;
+			case "*":
+				tf3.setText(String.valueOf(n1 * n2));
+				break;
+			case "/":
+				if (n2 == 0) {
+					JOptionPane.showMessageDialog(this, "0 으로 나눌 수 없다");
+					tf2.setText(""); // 칸 지우기
+					tf2.requestFocus(); // 커서 고정
+				} else {
+					tf3.setText(String.valueOf(n1 / (double) n2));
+				}
+				break;
+			default:
+				break;
+			}
+			
 		}
 	}
 	public static void main(String[] args) {
