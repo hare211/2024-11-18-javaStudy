@@ -87,7 +87,36 @@ public class GoodsDAO {
 		}
 	}
 	// => 자동화(스프링 => AOP) => 실시간 처리 Task
-	//
+	// 기능
+	// 총 페이지
+	public int goodsTotalPage() {
+		int count = 0;
+		// selectList(String sql)
+		try {
+			// 1. 연결
+			getConnection();
+			// 2. 전송할 오라클 명령문 
+			String sql = "SELECT COUNT(*) FROM goods_all"; // SQL 문장 
+			// 3. 오라클로 전송
+			ps = conn.prepareStatement(sql);
+			// 4. 실행 결과값 읽기
+			ResultSet rs = ps.executeQuery();
+			// 5. 데이터가 있는 메모리 위치에 커서를 이동
+			rs.next();
+			// 6. 읽어온 값을 저장
+			count = rs.getInt(1);
+			// 7. ResultSet 닫기
+			rs.close();
+		} catch (Exception ex) {
+			// 에러 확인
+			ex.printStackTrace();
+		} finally {
+			disConnection(); // 반드시 연결 해제
+		}
+		return count;
+	}
+	// 목록
+	// 추가
 	
 }
 
