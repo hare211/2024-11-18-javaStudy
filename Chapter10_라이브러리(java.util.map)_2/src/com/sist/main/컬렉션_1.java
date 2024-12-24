@@ -1,4 +1,11 @@
 package com.sist.main;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 /*
  * Collection Framework
  * 1) 다수의 데이터를 쉽고 효율적으로 처리가 가능하게 만든 표준화, 라이브러리, 클래스의 집합
@@ -86,9 +93,85 @@ package com.sist.main;
  * 		=> HashSet
  * 		=> TreeSet
  * 		1) List 데이터의 중복 제거
+ * 		2) 순서 X -> 인덱스 X
+ * 		3) 데이터 중복 허용 X
+ * 			=> id / 장바구니
+ * 			   ----------- Map
+ * 			=> 장르 / 부서 / 직위
+ * 		4) HashSet : 속도가 빠르다
+ * 		   TreeSet : 정렬 / 검색
+ * 		5) 주요 메서드
+ * 			add() : 추가
+ * 			remove() : 삭제
+ * 			clear() : 전체 삭제
+ * 			iterator() : 한 번에 데이터를 모아서 출력
+ * 			----------
+ * 			headSet() / tailSet()
+ * 			---------- 최신방문
  */
-public class 컬렉션_1 {
+// => 객체 저장 => 재정의
+import java.util.*;
 
+@AllArgsConstructor
+@Data
+class Sawon {
+	private int sabun;
+	private String name;
+	
+//	public Sawon(int sabun, String name) {
+//		this.sabun = sabun;
+//		this.name = name;
+//	}
+//	
+//	public int getSabun() {
+//		return sabun;
+//	}
+//	public void setSabun(int sabun) {
+//		this.sabun = sabun;
+//	}
+//	public String getName() {
+//		return name;
+//	}
+//	public void setName(String name) {
+//		this.name = name;
+//	}
+
+//	@Override
+//	public int hashCode() {
+//		return (sabun + name).hashCode();
+//	}
+//
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (obj instanceof Sawon) {
+//			Sawon s = (Sawon) obj;
+//			return name.equals(s.name) && sabun == s.sabun;
+//		}
+//		return false;
+//	}
+	
+	
+}
+public class 컬렉션_1 {
+	public static void main(String[] args) {
+		Sawon s1 = new Sawon(1, "홍씨");
+		Sawon s2 = new Sawon(1, "홍씨");
+		// hashCode() / equals() 재정의
+		
+		System.out.println(s1.hashCode());
+		System.out.println(s2.hashCode());
+		
+		Set<Sawon> set = new HashSet<Sawon>();
+		set.add(s1);
+		set.add(s2);
+		System.out.println(set.size());
+		/*
+		 * HashSet<Sawon> set = new HashSet<Sawon>();
+		 * Set<Sawon> set = new HashSet<Sawon>();
+		 * => 인터페이스 -> 유연성
+		 * set = new TreeSet<Sawon> 가능
+		 */
+	}
 }
 
 
