@@ -74,7 +74,7 @@ public class MusicFindView extends JFrame {
 				model.addRow(data);
 				
 			} catch (Exception ex) {
-				ex.printStackTrace();
+				ex.printStackTrace(); 
 			}
 		}
 		
