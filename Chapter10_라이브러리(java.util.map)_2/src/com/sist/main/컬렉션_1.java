@@ -41,7 +41,73 @@ package com.sist.main;
  * 		Box<String> box = new Box<String>() => T => String
  * 		=> T 가 한 번에 지정된 데이터형으로 변경
  * 		=> 사용자 정의 클래스로 변경
+ * 		Box<Sawon> => T => Sawon
+ * 		
+ * 			Collection => interface
+ * 				|
+ * 	-----------------------------
+ * 	|			|				|
+ * List		   Set			   Map => 인터페이스
+ * 순서 O		  순서 X			key, value 를 동시에 저장
+ * (인덱스)	  중복 X			key 중복 X
+ * 중복 O						value 중복 O
+ * 	|
+ * 구현된 클래스
+ * ArrayList
+ * 	데이터베이스 : 목록
+ * 	=> 브라우저로 전송
+ * 	=> 웹
+ * LinkedList
+ * 	수정 / 삭제 / 추가 시 속도 빠름
+ * 	=> 일반 윈도우(게시판)
+ * 	=> 예제
+ * Vector
+ * 	동기화 => 네트워크
+ * 	=> Vector 를 보완한 클래스 -> ArrayList
+ * 	=> 같은 기능을 가지고 있다
+ * 	   ---------------
+ * 		add() : 추가
+ * 		set() : 수정
+ * 		get() : 읽기
+ * 		remove() : 삭제
+ * 	   --------------- CRUD
+ * 					Create / Read / Update / Delete
+ * 					추가		 읽기		수정		 삭제
+ * 			=> 오라클	INSERT	 SELECT UPDATE	 DELETE
+ * 		size() : 저장 개수
+ * 		isEmpty() : 저장된 데이터가 있는 지 확인
+ * 		clear() : 전체 삭제
+ * 		-----------------
+ * 		addAll() : 다른 List, Set 에 있는 데이터를 복사
+ * 		subList / retain / contains()...
+ * 		---------------------------------
+ * 		=> 오라클 : MINUS / INTERSECT / UNION / UNIONA
+ * 	Set
+ * 		=> HashSet
+ * 		=> TreeSet
+ * 		1) List 데이터의 중복 제거
  */
 public class 컬렉션_1 {
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
