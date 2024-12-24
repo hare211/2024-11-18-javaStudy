@@ -104,7 +104,7 @@ public class MusicDAO {
 			// 1. 오라클 연결
 			getConnection();
 			// 2. 오라클로 전송할 문장
-			String sql = "SELECT mno,title,singer,album,poster " + "FROM genie_music " + "WHERE title LIKE '%'||?||'%'"; // 
+			String sql = "SELECT mno, title, singer, album, poster " + "FROM genie_music " + "WHERE title LIKE '%'||?||'%'"; // 
 			//		 //오라클 -> kv			// contains() => LIKE => REGEXP_LIKE
 			// 3. SQL 을 전송
 			ps = conn.prepareStatement(sql);

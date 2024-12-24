@@ -11,7 +11,7 @@ import java.net.URL;
 import com.sist.vo.*;
 import com.sist.*;
 import com.sist.dao.MusicDAO;
-
+// return selectList(sql) -> 아래 코드들이 다 들어있음
 public class MusicFindView extends JFrame {
 	JTextField tf; // 입력창
 	JButton jb; // 검색 버튼
