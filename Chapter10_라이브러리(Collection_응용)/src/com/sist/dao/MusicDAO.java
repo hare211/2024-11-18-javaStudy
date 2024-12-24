@@ -21,6 +21,9 @@ package com.sist.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.*;
+import com.sist.vo.*;
 
 public class MusicDAO {
 	// 연결 객체
@@ -94,6 +97,66 @@ public class MusicDAO {
 	}
 	// 5. 뮤직 상세보기
 	// 6. 뮤직 검색
+	// DAO => 공용(웹, 윈도우, 애플리케이션) -> 하나를 만들면 다 사용할 수 있다
+	public List<MusicVO> musicFindData(String fd) {
+		List<MusicVO> list = new ArrayList<MusicVO>();
+		try {
+			// 1. 오라클 연결
+			getConnection();
+			// 2. 오라클로 전송할 문장
+			String sql = "SELECT mno,title,singer,album,poster " + "FROM genie_music " + "WHERE title LIKE '%'||?||'%'"; // 
+			//		 //오라클 -> kv			// contains() => LIKE => REGEXP_LIKE
+			// 3. SQL 을 전송
+			ps = conn.prepareStatement(sql);
+			// 4. ? 에 값을 채운다
+			ps.setString(1, fd);
+			// 5. 실행 후 결과값을 가지고 온다
+			ResultSet rs = ps.executeQuery();
+			// 6. List 에 값을 채운다
+			while (rs.next()) { // 처음부터 마지막까지 읽어온다
+				// 한 줄씩 읽어온다
+				MusicVO vo = new MusicVO();
+				
+				vo.setMno(rs.getInt(1));
+				vo.setTitle(rs.getString(2));
+				vo.setSinger(rs.getString(3));
+				vo.setAlbum(rs.getString(4));
+				vo.setPoster(rs.getString(5));
+				
+				list.add(vo);
+			}
+			rs.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			// 오라클 연결 해제
+			disConnection();
+		}
+		return list;
+	}
+	// 동영상 키
+	public String getkey(int mno) {
+		String key = "";
+		try {
+			getConnection();
+			
+			String sql = "SELECT DISTINCT key FROM genie_music" + "WHERE mno = " + mno;
+			
+			ps = conn.prepareStatement(sql);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			key = rs.getString(1);
+			rs.close();
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			disConnection();
+		}
+		return key;
+	}
 }
 
 
