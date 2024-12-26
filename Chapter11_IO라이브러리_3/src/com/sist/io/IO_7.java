@@ -43,6 +43,7 @@ public class IO_7 {
 				// 네트워크의 단점 : 전송 시 1byte
 				// => 오라클, 웹
 				// => 주소 / PORT
+				//	  URL => 8080 => 0 ~ 65535
 				while (true) {
 					String msg = br.readLine();
 					if (msg == null) {
