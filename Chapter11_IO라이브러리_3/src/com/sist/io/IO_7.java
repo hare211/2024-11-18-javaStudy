@@ -3,6 +3,10 @@ package com.sist.io;
  * 
  */
 import java.util.*;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import java.io.*;
 import java.net.*;
 public class IO_7 {
@@ -33,26 +37,30 @@ public class IO_7 {
 			
 			path = path + strURL[menu];
 			
-			URL url = new URL(path);
-			HttpURLConnection conn = (HttpURLConnection)url.openConnection(); // 웹에 접속
+			Document doc = Jsoup.connect(path).get();
+			System.out.println(doc.toString()); // 아래 코드와 동일한 수행
 			
-			if (conn != null) { // 접속이 된 경우
-				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-				// 전송 => 1byte, 받은 경우 => 2byte 로 변환 후 출력
-				// 한글이 깨진다 -> UTF-8
-				// 네트워크의 단점 : 전송 시 1byte
-				// => 오라클, 웹
-				// => 주소 / PORT
-				//	  URL => 8080 => 0 ~ 65535
-				while (true) {
-					String msg = br.readLine();
-					if (msg == null) {
-						break;
-					}
-					System.out.println(msg);
-				}
-			}
-			conn.disconnect();
+//			URL url = new URL(path);
+//			HttpURLConnection conn = (HttpURLConnection)url.openConnection(); // 웹에 접속
+//			
+//			
+//			if (conn != null) { // 접속이 된 경우
+//				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//				// 전송 => 1byte, 받은 경우 => 2byte 로 변환 후 출력
+//				// 한글이 깨진다 -> UTF-8
+//				// 네트워크의 단점 : 전송 시 1byte
+//				// => 오라클, 웹
+//				// => 주소 / PORT
+//				//	  URL => 8080 => 0 ~ 65535
+//				while (true) {
+//					String msg = br.readLine();
+//					if (msg == null) {
+//						break;
+//					}
+//					System.out.println(msg);
+//				}
+//			}
+//			conn.disconnect();
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
