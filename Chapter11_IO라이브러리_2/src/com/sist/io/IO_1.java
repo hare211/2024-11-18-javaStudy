@@ -76,8 +76,28 @@ package com.sist.io;
  * 		FileInputStream / FileOutputStream => 이미지 / ZIP
  * 		=> CheckException => 예외 처리 필요
  */
+import java.io.*;
 public class IO_1 {
-
+	public static void main(String[] args) {
+		//FileInputStream fis = null;
+		FileReader fis = null;
+		try {
+			// 파일 읽기
+			fis = new FileReader("C:\\Users\\sist-117\\git\\java-study\\Chapter11_IO라이브러리_2\\src\\com\\sist\\io\\IO_1.java");
+			int i = 0; // int read() => char 로 변환, 'A' -> 65 로 반환됨
+			while ((i = fis.read()) != -1) { // -1 EOF 파일이 끝나기 전
+				System.out.print((char) i);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				fis.close();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
 }
 
 
