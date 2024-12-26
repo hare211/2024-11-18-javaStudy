@@ -41,7 +41,54 @@ package com.sist.io;
  * 
  * 				ObjectInputStream / ObjectOutputStream
  * 		=> 네트워크 입출력
+ * 
+ * 		입출력
+ * 				입력 스트림				출력 스트림
+ * 		키보드 		=>		자바 프로그램		=>		모니터
+ * 					|						|
+ * 				~InputStream			~OutputStream
+ * 				~Reader					~Writer
+ * 		~InputSTream / ~OutputStream
+ * 		=> 이미지나 동영상 같은 바이트 형태의 데이터 입출력
+ * 		=> 업로드 / 다운로드
+ * 		~Reader / ~Writer
+ * 		=> 16bit(2byte) 문자 데이터를 입출력
+ * 		=> 파일에 글쓰기 / 파일 읽어오기
+ * 
+ * 		메모리에 모아서 한 번에 처리 => Buffered~
+ * 
+ * 		=> 객체 단위로 저장 -> 과거
+ * 		   ------------ 파일 프로그램
+ * 		=> 데이터베이스로 변경
+ * 		=> 파일에 저장하는 경우
+ * 		   -------------- Open API => 파싱(파일에 저장했다가 필요한 것만 파싱하여 가져옴)
+ * 		   -------------- 크롤링 => 임시 저장 장소
+ * 
+ * 			1. 데이터 종류 
+ * 				1) 정형화 데이터 : 데이터베이스 안 저장 => 공유
+ * 					=> 웹 / 윈도우에 출력할 데이터
+ * 				2) 반정형화 데이터 : 구분만 된 데이터
+ * 					=> HTML / XML / JSON / CSV
+ * 					=> API / 공공포탈 
+ * 				3) 비정형화 데이터 : 구분이 없는 데이터
+ * 					=> 뉴스 / 줄거리 / 덧글
+ * 					=> 분석하여 필요한 데이터를 읽어 와 정형화 된 데이터로 저장 -> 빅 데이터 => AI
+ * 		FileInputStream / FileOutputStream => 이미지 / ZIP
+ * 		=> CheckException => 예외 처리 필요
  */
 public class IO_1 {
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
