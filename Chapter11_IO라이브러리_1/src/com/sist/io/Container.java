@@ -45,7 +45,7 @@ public class Container {
 	// 요청 시 마다 클래스를 찾아주는 역할
 	public Object getBean(String key) {
 		
-		return (I)clsMap.get(key);
+		return clsMap.get(key);
 	}
 	
 }
