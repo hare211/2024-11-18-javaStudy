@@ -30,7 +30,7 @@ public class EmpDAO {
 		}
 	}
 	// 연결
-	// 위탁
+	// 위탁 
 	public void getConnection() {
 		try {
 			conn = DriverManager.getConnection(url, username, password);
