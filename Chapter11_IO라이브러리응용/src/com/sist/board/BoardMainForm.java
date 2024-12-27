@@ -1,7 +1,7 @@
 package com.sist.board;
 import javax.swing.*;
 import java.awt.*;
-// 수정
+// 수정 
 public class BoardMainForm extends JFrame{
 	CardLayout card = new CardLayout();
 	public BoardMainForm() {
