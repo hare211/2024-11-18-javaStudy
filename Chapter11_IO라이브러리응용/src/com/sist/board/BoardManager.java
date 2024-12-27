@@ -75,6 +75,64 @@ public class BoardManager {
 		return vo;
 	}
 	// 4. 수정 / 삭제 => Update / Delete 
+	public BoardVO boardUpdateData(int no) {
+		BoardVO vo = new BoardVO();
+		for (BoardVO dvo : boardList) {
+			if (dvo.getNo() == no) {
+				vo = dvo;
+				break;
+			}
+		}
+		return vo;
+	}
+	public boolean boardUpdate(BoardVO vo) {
+		boolean bCheck = false;
+		int index = 0;
+		for (int i = 0; i < boardList.size(); i++) {
+			BoardVO dvo = boardList.get(i);
+			if (vo.getNo() == dvo.getNo()) {
+				index = i;
+				break;
+			}
+		}
+		
+		BoardVO dvo = boardList.get(index);
+		if (dvo.getPwd().equals(vo.getPwd())) {
+			bCheck = true;
+			boardList.set(index, vo); // 수정 => List
+			boardSave(); // 파일 변경(파일도 같이 수정해야 함)
+		} else {
+			bCheck = false;
+		}
+		return bCheck;
+	}
+	public boolean boardDelete (int no, String pwd) {
+		
+		boolean bCheck = true;
+		
+		for (BoardVO vo : boardList) {
+			if (vo.getNo() == no) {
+				if (!vo.getPwd().equals(pwd)) {
+					bCheck = false;
+					return bCheck;
+				}
+			}
+		}
+		
+		int index = 0;
+		// remove(int index)
+		for (int i = 0; i < boardList.size(); i++) {
+			BoardVO vo = boardList.get(i);
+			if (vo.getNo() == no) {
+				index = i;
+				break;
+			}
+		}
+		// 삭제
+		boardList.remove(index);
+		boardSave(); // 파일 저장
+		return bCheck;
+	}
 	// CURD => DML 
 	// 5. 찾기 => 검색 
 	// => 오라클 => 
