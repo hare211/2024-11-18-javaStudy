@@ -1,4 +1,4 @@
-package com.sist.board;
+package com.sist.main;
 
 import lombok.Data;
 

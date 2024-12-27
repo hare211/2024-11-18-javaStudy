@@ -1,4 +1,4 @@
-package com.sist.board;
+package com.sist.main;
 
 import java.awt.geom.Area;
 import java.io.FileOutputStream;
