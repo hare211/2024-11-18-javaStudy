@@ -15,7 +15,7 @@ public class BoardIOSetting {
 			oos = new ObjectOutputStream(fos);
 			oos.writeObject(list);
 			System.out.println("파일에 저장공간 생성");
-		} catch (Exception ex) {
+		} catch (Exception ex) { 
 			ex.printStackTrace();
 		} finally { 
 			// 오라클 / 서버 / 파일
