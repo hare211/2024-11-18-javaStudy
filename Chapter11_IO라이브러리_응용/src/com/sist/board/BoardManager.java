@@ -11,7 +11,11 @@ public class BoardManager {
 	private static List<BoardVO> boardList = new ArrayList<BoardVO>();
 	// 오라클 => 저장된 데이터가 static => 공유된 데이터
 	// 초기화
-	static {
+	public BoardManager() {
+		boardGetDate();
+	}
+	
+	public void boardGetDate() {
 		ObjectInputStream ois = null;
 		try {
 			FileInputStream fis = new FileInputStream("c:\\java_data\\board.txt");
