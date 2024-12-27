@@ -9,7 +9,7 @@ public class Emp {
 	private Date hiredate; // 입사일
 	private int sal; // 급여
 	private int comm; // 성과급
-	private int deptno; // 부서번호
+	private int deptno; // 부서번호 
 	public int getEmpno() {
 		return empno;
 	}
