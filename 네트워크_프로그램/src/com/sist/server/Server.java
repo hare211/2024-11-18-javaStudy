@@ -12,7 +12,12 @@ public class Server implements Runnable{
 	private final int PORT = 3050; // 조별포트
 	// => 1024 ~ 65535
 	private Vector<Client> waitVc = new Vector<Client>(); // vector 에 저장해주는 역할 -> ServerSocket
-	
+	/*
+	 *  ArrayList 의 단점 : 순서가 틀릴 수도 있다
+	 *  		=> 정렬 / Order By / index
+	 *  => 1024 ~ 65535
+	 *  초기화
+	 */
 	public Server() {
 		try {
 			ss = new ServerSocket(PORT);

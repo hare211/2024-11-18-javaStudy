@@ -76,10 +76,12 @@ public class ClientChatMain extends JFrame implements ActionListener, Runnable {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
-			tf.setEditable(true); // 접속 시 입력창 활성화
+			tf.setEnabled(true); // 접속 시 입력창 활성화
 			b1.setEnabled(false); // 접속은 한 번만 -> 접속 시 접속 버튼 비활성화
 			// 서버에서 들어오는 값을 받는다
 			new Thread(this).start(); // run() 호출
+			
+			
 		} else if (e.getSource() == tf) { // 채팅 입력창에 문자 입력하고 엔터
 			String msg = tf.getText();
 			if (msg.trim().length() < 1) { // 입력이 안 됐을 때
@@ -87,11 +89,13 @@ public class ClientChatMain extends JFrame implements ActionListener, Runnable {
 				return;
 			}
 			try {
-				out.write(("[" + name + "]" + msg + "\n").getBytes());
+				out.write(("[" + name + "] : " + msg + "\n").getBytes());
+				tf.setText("");
 				return;
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
+			
 		}
 	}
 	
