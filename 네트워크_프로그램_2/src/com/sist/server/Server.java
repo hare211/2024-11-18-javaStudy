@@ -48,6 +48,7 @@ public class Server {
 			ss = new ServerSocket(PORT);
 			// bind => 개통(유심)
 			// listen() => 대기
+			System.out.println("Server Start...");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -55,7 +56,9 @@ public class Server {
 	// 5. 접속 시 처리 = 사용자 정보를 받아서 Client 클래스로 전송
 	// 통신이 가능하게 만든다
 	public static void main(String[] args) {
-		
+		Server server = new Server();
+		//new Thread(server).start(); // <- 
+		// while 문 미작성
 	}
 	// 클라이언트마다 통신을 담당
 	// Server 가 가지고 있는 모든 자원(변수, 메서드)을 사용할 수 있다
@@ -95,8 +98,80 @@ public class Server {
 			 * 자바 프로그램에서 가장 쉬운 프로그램
 			 * 					---------- 패턴의 개수
 			 * => 네트워크
-			 * => 데이터베이스
+			 * => 데이터베이스 => MyBatis / JPA(모두 같은 코딩)
 			 */
+		}
+		// 실제 통신
+		public void run() {
+			try {
+				while (true) {
+					// 1. 사용자 요청값 받기
+					String msg = in.readLine();
+					// 로그인 => 100|id|name|sex -> 전송
+					StringTokenizer st = new StringTokenizer(msg, "|");
+					int protocol = Integer.parseInt(st.nextToken()); // 100
+					
+					switch (protocol) {
+					case Function.LOGIN: { // 로그인 요청 시
+						// 로그인 시 회원가입 내용을 전송(회원가입 미구현(DB X) -> StringTokenizer 로 대체)
+						id = st.nextToken();
+						name = st.nextToken();
+						sex = st.nextToken();
+						pos = "대기실";
+						
+						// 1. 접속이 된 사람 => 정보 전송
+						messageAll(Function.LOGIN + "|"
+								+ id + "|" + name + "|" + sex + "|" + pos);
+						// 2. 입장 메세지 전송
+						messageAll(Function.WAITCHAT + "|[알림]" + name + "님 입장하셨습니다");
+						// 3. waitVc 에 저장
+						waitVc.add(this);
+						// 5. 화면을 변경
+						messageTo(Function.MYLOG + "|" + id);
+						// 6. 접속된 모든 정보를 로그인 된 사람에게 전송
+						for (Client c : waitVc) {
+							messageTo(Function.LOGIN + "|" + c.id + "|" + c.name + "|" + c.sex + "|" + c.pos);
+						}
+					}
+						break;
+					}
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		// 접속자 전체 : 대기실
+		public synchronized void messageAll(String msg) {
+			for (int i = 0; i < waitVc.size(); i++) {
+				Client c = waitVc.get(i); // Client 에 저장
+				try {
+					c.messageTo(msg); // 모두에게 전송
+				} catch (Exception ex) {
+					waitVc.remove(i); // 여러 번 연결 시도에도 오류 발생 시, 명단에서 삭제
+					ex.printStackTrace();
+				}
+			}
+		}
+		// 접속자 개인 : 쪽지 보내기, 정보 보기, 귓속말
+		public synchronized void messageTo(String msg) {
+			try {
+				out.write((msg + "\n").getBytes()); // 메세지 보내기
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
