@@ -9,10 +9,12 @@ import com.sist.commons.*;
 
 public class ChatMain extends JFrame {
 	Login login = new Login();
+	WaitRoom wr = new WaitRoom();
 	CardLayout card = new CardLayout(); // 화면을 숨긴 뒤 보여준다
 	// <jsp:include>
 	public ChatMain() {
 		setLayout(card);
+		add("WR", wr);
 		add("LOG", login);
 		
 		setSize(800, 600);
