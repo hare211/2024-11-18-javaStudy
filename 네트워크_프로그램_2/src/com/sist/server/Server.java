@@ -3,6 +3,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 import com.sist.commons.*;
+import com.sist.server.Server.Client;
 /*
  * class Server {
  * 	Vector waitVc = new Vector()
@@ -30,7 +31,7 @@ import com.sist.commons.*;
  * Vector 를 static 으로 선언하거나 Client 를 내부 클래스로 선언한다 
  */
 // 접속 시에 처리 => 교환 소켓 / 대기 소켓
-public class Server {
+public class Server implements Runnable{
 	private Vector<Client> waitVc = new Vector<Client>(); // Server.Client 외부에서 가져올 때는 Server.Client 로 써야한다
 	// 1. 저장 공간(접속자) => 동기화
 	/*
@@ -53,11 +54,31 @@ public class Server {
 			ex.printStackTrace();
 		}
 	}
+	@Override
+	public void run() {
+		try {
+			while (true) {
+				Socket s = ss.accept();
+				// 접속 시에만 호출 => 발신자의 정보(ip / port) => accept 메서드
+				// => Socket(ip / port)
+				// => 사용자는 port => 자동으로 설정
+				// => 어떤 위치든 상관없다
+				Client client = new Client(s); // s -> 한 명하고만 연결이 된다
+				// s => port(윈도우마다 다르다)
+				waitVc.add(client); // 데이터 저장
+				
+				// => 통신을 시작하라 명령
+				client.start(); // run() 호출
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 	// 5. 접속 시 처리 = 사용자 정보를 받아서 Client 클래스로 전송
 	// 통신이 가능하게 만든다
 	public static void main(String[] args) {
 		Server server = new Server();
-		//new Thread(server).start(); // <- 
+		new Thread(server).start(); // <- 
 		// while 문 미작성
 	}
 	// 클라이언트마다 통신을 담당
@@ -107,6 +128,7 @@ public class Server {
 				while (true) {
 					// 1. 사용자 요청값 받기
 					String msg = in.readLine();
+					System.out.println("Client => " + msg);
 					// 로그인 => 100|id|name|sex -> 전송
 					StringTokenizer st = new StringTokenizer(msg, "|");
 					int protocol = Integer.parseInt(st.nextToken()); // 100
@@ -161,6 +183,7 @@ public class Server {
 			}
 		}
 	}
+
 }
 
 
