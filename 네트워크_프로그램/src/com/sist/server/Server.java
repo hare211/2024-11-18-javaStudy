@@ -44,6 +44,8 @@ public class Server implements Runnable{
 				// => 어떤 위치든 상관없다
 				Client client = new Client(s); // s -> 한 명하고만 연결이 된다
 				// s => port(윈도우마다 다르다)
+				waitVc.add(client); // 데이터 저장
+				
 				// => 통신을 시작하라 명령
 				client.start(); // run() 호출
 			}
