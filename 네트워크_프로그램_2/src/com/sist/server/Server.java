@@ -65,8 +65,6 @@ public class Server implements Runnable{
 				// => 어떤 위치든 상관없다
 				Client client = new Client(s); // s -> 한 명하고만 연결이 된다
 				// s => port(윈도우마다 다르다)
-				waitVc.add(client); // 데이터 저장
-				
 				// => 통신을 시작하라 명령
 				client.start(); // run() 호출
 			}
@@ -155,7 +153,47 @@ public class Server implements Runnable{
 							messageTo(Function.LOGIN + "|" + c.id + "|" + c.name + "|" + c.sex + "|" + c.pos);
 						}
 					}
-						break;
+					break;
+					case Function.WAITCHAT:{
+						messageAll(Function.WAITCHAT + "|[" + name + "] " + st.nextToken());
+					}
+					break;
+					case Function.EXIT:{
+						messageAll(Function.EXIT + "|" + id);
+						messageAll(Function.WAITCHAT + "|[알림]" + name + "님이 퇴장하셨습니다.");
+						messageTo(Function.MYEXIT + "|");
+						// 행위를 하는 사람 => this
+						for (int i = 0; i < waitVc.size(); i++) { // 나가기 시 제거
+							Client c = waitVc.get(i);
+							if (c.id.equals(id)) {
+								waitVc.remove(i);
+								try {
+									in.close();
+									out.close();
+								} catch (Exception ex) {
+									ex.printStackTrace();
+								} break;
+							}
+						}
+					}
+					break;
+					/*
+					 * 서버의 기능
+					 * 1. 저장
+					 * 2. 수정
+					 * 3. 읽기 / 쓰기(송수신)
+					 * 4. 검색
+					 */
+					case Function.INFO: {
+						String yid = st.nextToken();
+						for (Client c : waitVc) {
+							if (yid.equals(c.id)) {
+								messageTo(Function.INFO + "|" + c.id + "|" + c.name + "|" + c.sex + "|" + c.pos);
+								break;
+							}
+						}
+					}
+					break;
 					}
 				}
 			} catch (Exception ex) {
