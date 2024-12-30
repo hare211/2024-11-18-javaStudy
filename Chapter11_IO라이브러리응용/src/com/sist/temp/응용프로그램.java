@@ -31,7 +31,7 @@ package com.sist.temp;
  * 									=> 읽기 / 쓰기
  * 									   getter setter
  * 	= Action : 기능만 모아서 관리
- * 			   ----(메서드)
+ * 			   ----(메서드) 
  * 				~Manager / ~DAO / ~Service / ~Model
  * 	= 혼합 => 게임
  * 	= 상속 => 포함
