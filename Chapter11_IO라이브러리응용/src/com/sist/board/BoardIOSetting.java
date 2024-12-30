@@ -17,7 +17,7 @@ public class BoardIOSetting {
         		  
         	oos = new ObjectOutputStream(fos);
         	oos.writeObject(list);
-        	System.out.println("파일에 저장공간 생성 완료!!");
+        	System.out.println("파일에 저장공간 생성 완료!!"); 
         }catch(Exception ex) 
         {
         	ex.printStackTrace();
