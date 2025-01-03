@@ -56,7 +56,7 @@ public class ZipcodeDAO {
 			// 1. 오라클 연결
 			getConnection();
 			// 2. SQL 문장 작성
-			String sql = "SELECT zipcode, sido, gugun, dong, bunji, NVL(bunji, '') FROM zipcode WHERE dong LIKE '%'||?||'%'";
+			String sql = "SELECT zipcode, sido, gugun, dong, NVL(bunji, ' ') FROM zipcode WHERE dong LIKE '%'||?||'%'";
 			// 오라클 SQL 문장 / JavaSQL 문장 => LIKE 문장 다른 점 존재
 			
 			ps = conn.prepareStatement(sql);
