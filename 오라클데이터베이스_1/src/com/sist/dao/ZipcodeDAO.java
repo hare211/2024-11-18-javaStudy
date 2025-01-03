@@ -47,7 +47,7 @@ public class ZipcodeDAO {
 		if (dao == null) {
 			dao = new ZipcodeDAO();
 		}
-		return dao;
+		return dao; 
 	}
 	// 기능 우편번호 검색
 	public List<ZipcodeVO> postFind(String dong) {
