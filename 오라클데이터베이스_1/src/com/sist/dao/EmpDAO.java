@@ -165,6 +165,40 @@ public class EmpDAO {
 		return list;
 	}
 	// 4-4. 상세보기 => WHERE
+	/*
+	 * List => 여러 명
+	 * EmpVo => 1 명 => 상세보기
+	 */
+	public EmpVO empDetailData(int empno) { // empno -> 중복 없는 데이터
+		EmpVO vo = new EmpVO(); // 사원 한 명에 대한 정보
+		try {
+			// 연결
+			getConnection();
+			// SQL 문장 작성
+			String sql = "SELECT * FROM emp WHERE empno = " + empno;
+			ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			rs.next(); // 사원 한 명의 정보만을 필요로 하기 때문에 한 줄만 가져온다 (while 문 사용 X)
+			// 순서(테이블 컬럼의 순서 그대로 매칭시켜서 가져와야 한다)
+			// | empno / ename / job / mgr/ / hiredate / sal / comm / deptno
+			vo.setEmpno(rs.getInt(1));
+			vo.setEname(rs.getString(2));
+			vo.setJob(rs.getNString(3));
+			vo.setMgr(rs.getInt(4));
+			vo.setHiredate(rs.getDate(5));
+			vo.setSal(rs.getInt(6));
+			vo.setComm(rs.getInt(7));
+			vo.setDeptno(rs.getInt(8));
+			// rs.getDouble()
+			rs.close();
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			disConnection();
+		}
+		return vo;
+	}
 }
 
 

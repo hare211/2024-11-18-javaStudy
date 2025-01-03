@@ -15,6 +15,22 @@ public class EmpMain {
 		for (EmpVO vo : list) {
 			System.out.println(vo.getEmpno() + " " + vo.getEname() + " " + vo.getJob() + " " + vo.getHiredate());
 		}
+		
+		System.out.println("===========================");
+		System.out.print("사번 입력 : ");
+		int empno = scanner.nextInt();
+		EmpVO vo = dao.empDetailData(empno);
+		System.out.println("==== 사원 정보 ====");
+		
+		System.out.println("사번 : " + vo.getEmpno());
+		System.out.println("이름 : " + vo.getEname());
+		System.out.println("직위 : " + vo.getJob());
+		System.out.println("사수 번호 : " + vo.getMgr());
+		System.out.println("입사일 : " + vo.getHiredate());
+		System.out.println("급여 : " + vo.getSal());
+		System.out.println("성과급 : " + vo.getComm());
+		System.out.println("부서 번호 : " + vo.getDeptno());
+		
 				
 	}
 }
