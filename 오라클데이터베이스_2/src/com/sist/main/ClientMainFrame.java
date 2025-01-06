@@ -22,7 +22,7 @@ public class ClientMainFrame extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		cp.b1.addActionListener(this); // 로그인 버튼
-		cp.b2.addActionListener(this); // 취소 버튼
+		cp.b2.addActionListener(this); // 취소 버튼 
 	}
 	
 	public static void main(String[] args) {
