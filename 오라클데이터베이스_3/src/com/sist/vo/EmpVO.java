@@ -32,7 +32,20 @@ public class EmpVO {
 	private int empno, mgr, sal, comm, deptno;
 	private String ename, job;
 	private Date hiredate;
+	private String strSal;
+	// TO_CHAR => 문자열 -> String
+	// 문자열로 받을 수 있게 String 변수 추가
+	// 1. 정수 (천 단위로 ,)
+	// 2. 날짜 변환
 	
+	
+	
+	public String getStrSal() {
+		return strSal;
+	}
+	public void setStrSal(String strSal) {
+		this.strSal = strSal;
+	}
 	// 조인 => 포함 클래스
 	private DeptVO dvo = new DeptVO();
 	private SalGradeVO svo = new SalGradeVO();

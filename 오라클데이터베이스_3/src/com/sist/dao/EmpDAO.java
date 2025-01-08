@@ -86,7 +86,127 @@ public class EmpDAO {
 	 	=> BoardService : Board / Reply
 	 */
 	// 1. 기능
+	/*
+	 	사원 (사번, 이름, 직위, 입사일, 급여)
+	 	부서 (부서명, 근무지)
+	 	등급 (등급)
+	 	------------------------------- 테이블 3 개에서 출력에 필요한 데이터 추출 : 조인
+	 */
+	// EmpVO 데이터 저장된 클래스
+	public List<EmpVO> empJoinAllData() {
+		List<EmpVO> list = new ArrayList<EmpVO>();
+		
+		try {
+			// 1. 연결
+			getConnection();
+			// 2. 오라클로 SQL 문장 전송
+			String sql = "SELECT "
+						+ "empno, "
+						+ "ename, "
+						+ "job, "
+						+ "hiredate, "
+						+ "TO_CHAR(sal, '$999,999'), "
+						//+ "sal, "
+						+ "dname, "
+						+ "loc, "
+						+ "grade "
+						+ "FROM emp, dept, salgrade "
+						+ "WHERE emp.deptno = dept.deptno "
+						+ "AND sal BETWEEN losal AND hisal";
+			
+			// 2-1. 전송
+			ps = conn.prepareStatement(sql);
+			
+			// 3. SQL 실행 후 결과값을 메모리에 저장
+			ResultSet rs = ps.executeQuery();
+			
+			// 4. 커서의 위치 변경 => 첫 번째 출력 위치 => rs.next()
+			// empno, ename, job, hiredate, sal, dname, loc, grade
+			while (rs.next()) { // 다음으로 내려가다 데이터가 없는 경우 false
+				EmpVO vo = new EmpVO(); // Record 단위 (한 줄씩-한 행씩-한 ROW씩 읽어온다)
+				
+				vo.setEmpno(rs.getInt(1));
+				vo.setEname(rs.getString(2));
+				vo.setJob(rs.getString(3));
+				vo.setHiredate(rs.getDate(4));
+				//vo.setSal(rs.getInt(5));
+				vo.setStrSal(rs.getString(5));
+				// DeptVO
+				vo.getDvo().setDname(rs.getString(6));
+				vo.getDvo().setLoc(rs.getString(7));
+				// SalGradeVO
+				vo.getSvo().setGrade(rs.getInt(8));
+				
+				list.add(vo); // list.add 작성 안 했었음.
+			}
+			rs.close();
+		} catch (Exception ex) {
+			// 오류 확인
+			ex.printStackTrace();
+		} finally {
+			// 오라클 닫기
+			disconnection();
+		}
+		
+		return list;
+	}
 	
+	public EmpVO empFindData(int empno) {
+		EmpVO vo = new EmpVO();
+		
+		
+		try {
+			// 1. 연결
+			getConnection();
+			// 2. 오라클로 SQL 문장 전송
+			String sql = "SELECT "
+						+ "empno, "
+						+ "ename, "
+						+ "job, "
+						+ "hiredate, "
+						+ "TO_CHAR(sal, '$999,999'), "
+						//+ "sal, "
+						+ "dname, "
+						+ "loc, "
+						+ "grade "
+						+ "FROM emp, dept, salgrade "
+						+ "WHERE emp.deptno = dept.deptno "
+						+ "AND sal BETWEEN losal AND hisal "
+						+ "AND empno = " + empno;
+			
+			// 2-1. 전송
+			ps = conn.prepareStatement(sql);
+			
+			// 3. SQL 실행 후 결과값을 메모리에 저장
+			ResultSet rs = ps.executeQuery();
+			
+			// 4. 커서의 위치 변경 => 첫 번째 출력 위치 => rs.next()
+			// empno, ename, job, hiredate, sal, dname, loc, grade
+			rs.next(); // 다음으로 내려가다 데이터가 없는 경우 false
+				
+			vo.setEmpno(rs.getInt(1));
+			vo.setEname(rs.getString(2));
+			vo.setJob(rs.getString(3));
+			vo.setHiredate(rs.getDate(4));
+			//vo.setSal(rs.getInt(5));
+			vo.setStrSal(rs.getString(5));
+			// DeptVO
+			vo.getDvo().setDname(rs.getString(6));
+			vo.getDvo().setLoc(rs.getString(7));
+			// SalGradeVO
+			vo.getSvo().setGrade(rs.getInt(8));
+			
+			rs.close();
+		} catch (Exception ex) {
+			// 오류 확인
+			ex.printStackTrace();
+		} finally {
+			// 오라클 닫기
+			disconnection();
+		}
+		
+		return vo;
+	}
 	
 	
 }
