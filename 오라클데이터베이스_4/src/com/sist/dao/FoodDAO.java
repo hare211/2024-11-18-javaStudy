@@ -34,16 +34,16 @@ public class FoodDAO {
 			 * => rownum 은 1번부터 시작
 			 * => *** 인라인 뷰 => 페이지
 			 */
-			String sql = "SELECT "
+			String sql = "SELECT " // main
 							+ "fno, "
 							+ "name, "
 							+ "num "
-						+ "FROM (SELECT "
+						+ "FROM (SELECT " // sub
 									+ "fno, "
 									+ "name, "
 									+ "rownum as num "
 							  + "FROM ("
-							  		+ "SELECT "
+							  		+ "SELECT " // sub
 							  			+ "fno, "
 							  			+ "name "
 							  		+ "FROM "
