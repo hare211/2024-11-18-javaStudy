@@ -157,7 +157,27 @@ public class FreeBoardDAO {
 	}
 	// 3. 글쓰기 INSERT
 	public void boardInsert(FreeBoardVO vo) { // vo : 게시글 하나가 가지고 있는 모든 정보 => 매개 변수로 받아서 오라클로 전부 전송
-		
+		// 리턴형, 매개 변수 생각
+		try {
+			// 연결
+			getConnection();
+			String sql = "INSERT INTO free_board(no, name, subject, content, pwd) "
+					   + "VALUES(fb_no_seq.nextval, ?, ?, ?, ?)";
+			
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, vo.getName());
+			ps.setString(2, vo.getSubject());
+			ps.setString(3, vo.getContent());
+			ps.setString(4, vo.getPwd());
+			
+			// 실행
+			ps.executeUpdate(); // INSERT 이기 때문에 결과값을 불러올 필요 X
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			// 해제
+			disconnection();
+		}
 	}
 	// 4. 수정 UPDATE (비밀번호 검사)
 	// 5. 삭제 DELETE (비밀번호 검사)
