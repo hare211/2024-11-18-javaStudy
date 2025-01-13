@@ -4,6 +4,7 @@ import javax.swing.*;
 import com.sist.dao.*;
 import com.sist.vo.*;
 
+import java.util.BitSet;
 import java.util.Date;
 import java.util.List;
 import java.awt.*;
@@ -95,11 +96,67 @@ public class BoardMainForm extends JFrame implements ActionListener, MouseListen
 				curPage--;
 				listPrint();
 			}
-		} else if (e.getSource() == bList.nextBtn) { // 다음 버튼
+		} 
+		
+		else if (e.getSource() == bList.nextBtn) { // 다음 버튼
 			if (curPage < totalPage) {
 				curPage++;
 				listPrint();
 			}
+		}
+		
+		else if (e.getSource() == bList.inBtn) { // 글쓰기 버튼
+			card.show(getContentPane(), "INSERT"); // UI 분리
+			bInsert.nameTf.requestFocus();
+		}
+		
+		else if (e.getSource() == bInsert.b1) { // 글쓰기 등록
+			// 입력한 데이터 읽기
+			// 유효성 검사 => NOT NULL 속성을 가지고 있는 경우
+			// 웹 => 자바스크립트
+			String name = bInsert.nameTf.getText();
+			if (name.trim().isEmpty()) {
+				// 이름 입력 안된 상태
+				JOptionPane.showMessageDialog(this, "이름을 입력하세요"); // this : 윈도우 창
+				// alert() 창
+				bInsert.nameTf.requestFocus();
+				// name.focus()
+				return;
+			}
+			
+			String subject = bInsert.subTf.getText();
+			if (subject.trim().isEmpty()) {
+				JOptionPane.showMessageDialog(this, "제목을 입력하세요");
+				// alert() 창
+				bInsert.subTf.requestFocus();
+				// name.focus()
+				return;
+			}
+			
+			String content = bInsert.ta.getText();
+			if (content.trim().isEmpty()) {
+				JOptionPane.showMessageDialog(this, "내용을 입력하세요");
+				// alert() 창
+				bInsert.ta.requestFocus();
+				// name.focus()
+				return;
+			}
+			
+			String pwd = String.valueOf(bInsert.pwdPf.getPassword());
+			if (pwd.trim().isEmpty()) {
+				JOptionPane.showMessageDialog(this, "비밀번호를 입력하세요");
+				// alert() 창
+				bInsert.pwdPf.requestFocus();
+				// name.focus()
+				return;
+			}
+		}
+		
+		else if (e.getSource() == bInsert.b2) { // 글쓰기 취소
+			// JavaScript : history.back()
+			card.show(getContentPane(), "LIST");
+			// 화면 이름 getContentPane() : Panel 관리자
+			// => 이동 시 card 이름 부여 => 해당 card 로 이동
 		}
 	}
 	@Override
