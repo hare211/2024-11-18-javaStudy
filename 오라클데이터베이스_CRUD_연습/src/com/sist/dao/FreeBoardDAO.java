@@ -61,7 +61,7 @@ public class FreeBoardDAO {
 			getConnection();
 			// 2. SQL 문장 작성
 			String sql = "SELECT no, subject, name, regdate, hit, num "
-					   + "From (SELECT no, subject, name, regdate, hit, rownum as num "
+					   + "FROM (SELECT no, subject, name, regdate, hit, rownum as num "
 					   		 + "FROM (SELECT no, subject, name, regdate, hit "
 					   		 	   + "FROM free_board ORDER BY no DESC)) "
 					   + "WHERE num BETWEEN ? AND ?";
@@ -89,6 +89,7 @@ public class FreeBoardDAO {
 				
 				list.add(vo);
 			}
+			rs.close(); // 작성 안 했었음
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
@@ -182,5 +183,72 @@ public class FreeBoardDAO {
 	// 4. 수정 UPDATE (비밀번호 검사)
 	// 5. 삭제 DELETE (비밀번호 검사)
 	// 6. 찾기 LIKE
+	public List<FreeBoardVO> boardFindData(String col, String fd) {
+		// 이름, 제목, 내용으로 찾을 수 있도록
+		List<FreeBoardVO> list = new ArrayList<FreeBoardVO>();
+		try {
+			// 연결
+			getConnection();
+			String sql = "SELECT no, subject, name, regdate, hit "
+					   + "FROM free_board "
+					   + "WHERE " + col + " LIKE '%'||?||'%'";
+			// ? => setString(1, '홍길동')
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, fd);
+			
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				FreeBoardVO vo = new FreeBoardVO();
+				vo.setNo(rs.getInt(1));
+				vo.setSubject(rs.getString(2));
+				vo.setName(rs.getString(3));
+				vo.setRegdate(rs.getDate(4));
+				vo.setHit(rs.getInt(5));
+				
+				list.add(vo);
+			}
+			rs.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			// 해제
+			disconnection();
+		}
+		return list;
+	}
+	// 6-1. LIKE 로 찾은 COUNT 읽기
+	public int boardFindCount(String col, String fd) {
+		int count = 0;
+		try {
+			// 연결
+			getConnection();
+			String sql = "SELECT COUNT(*) "
+					   + "FROM free_board "
+					   + "WHERE " + col + " LIKE '%'||?||'%'";
+			// ? => setString(1, '홍길동')
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, fd);
+			
+			ResultSet rs = ps.executeQuery();
+
+			rs.next();
+			count = rs.getInt(1);
+			
+			rs.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			// 해제
+			disconnection();
+		}
+		return count;
+	}
 	// ------------------------------ CRUD
 }
+
+
+
+
+
+
+
