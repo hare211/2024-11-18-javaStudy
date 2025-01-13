@@ -86,6 +86,10 @@ public class BoardMainForm extends JFrame implements ActionListener, MouseListen
     }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		try
+		{
+			UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
+		}catch(Exception ex) {}
         new BoardMainForm();
 	}
 	@Override
