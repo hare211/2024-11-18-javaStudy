@@ -102,7 +102,14 @@ public class FreeBoardDAO {
 		int total = 0;
 		try {
 			getConnection();
-			String sql = "SELECT CEIL (COUNT(*) / 10.0) FROM free_board;";
+			String sql = "SELECT CEIL (COUNT(*) / 10.0) FROM free_board";
+			ps = conn.prepareStatement(sql);
+			
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			
+			total = rs.getInt(1);
+			rs.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
