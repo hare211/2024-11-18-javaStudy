@@ -107,6 +107,12 @@ public class BoardMainForm extends JFrame implements ActionListener, MouseListen
 		
 		else if (e.getSource() == bList.inBtn) { // 글쓰기 버튼
 			card.show(getContentPane(), "INSERT"); // UI 분리
+			
+			bInsert.nameTf.setText("");
+			bInsert.subTf.setText("");
+			bInsert.ta.setText("");
+			bInsert.pwdPf.setText("");
+			// card 단점 : 윈도우가 종료되지 않는다 => 입력된 내용을 그대로 유지
 			bInsert.nameTf.requestFocus();
 		}
 		
@@ -150,6 +156,21 @@ public class BoardMainForm extends JFrame implements ActionListener, MouseListen
 				// name.focus()
 				return;
 			}
+			// 유효성 : NOT NULL / CHECK / PRIMARY KEY
+			
+			// 오라클 연동
+			FreeBoardDAO dao = FreeBoardDAO.newInsatance();
+			FreeBoardVO vo = new FreeBoardVO();
+			vo.setName(name);
+			vo.setSubject(subject);
+			vo.setContent(content);
+			vo.setPwd(pwd);
+			
+			dao.boardInsert(vo);
+			
+			card.show(getContentPane(), "LIST");
+			listPrint();
+			
 		}
 		
 		else if (e.getSource() == bInsert.b2) { // 글쓰기 취소
