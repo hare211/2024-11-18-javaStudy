@@ -204,7 +204,7 @@ public class BoardMainForm extends JFrame implements ActionListener, MouseListen
 		// 상세보기에서 목록으로 이동
 		else if (e.getSource() == bDetail.b3) {
 			card.show(getContentPane(), "LIST");
-			listPrint(); // 목록으로 돌아간 뒤 조회수 증가된 목록으로 최신화
+			listPrint(); // 목록으로 돌아간 뒤 조회수가 증가된 목록으로 최신화
 		}
 		// 상세보기에서 수정으로
 		else if (e.getSource() == bDetail.b1) {
