@@ -180,6 +180,7 @@ public class FreeBoardDAO {
 			
 			// 실행
 			ps.executeUpdate(); // INSERT 이기 때문에 결과값을 불러올 필요 X
+			// 기존에 있던 데이터를 수정
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
@@ -188,6 +189,80 @@ public class FreeBoardDAO {
 		}
 	}
 	// 4. 수정 UPDATE (비밀번호 검사)
+	// 4-1. 수정하려던 글의 기존 정보 읽기
+	public FreeBoardVO boardUpdateData(int no) {
+		// 한 개의 게시글 읽기 => PRIMARY KEY
+		FreeBoardVO vo = new FreeBoardVO();
+		// 한 row 의 데이터 찾기 => VO => 중복 없는 데이터, PK
+		// 여러 row 의 데이터 찾기 List<VO> 로 저장 => 검색어(LIKE)
+		try {
+			getConnection();
+			String sql = "SELECT no, name, subject, content "
+					   + "FROM free_board "
+					   + "WHERE no = " + no;
+			
+			ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			
+			vo.setNo(rs.getInt(1));
+			vo.setName(rs.getString(2));
+			vo.setSubject(rs.getString(3));
+			vo.setContent(rs.getString(4));
+			
+			rs.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			disconnection();
+		}
+		return vo;
+	}
+	// 4-2. 실제 수정
+	public boolean boardUpdate(FreeBoardVO vo) {
+		boolean bCheck = false;
+		try {
+			getConnection();
+			String sql = "SELECT pwd "
+					   + "FROM free_board "
+					   + "WHERE no = " + vo.getNo();
+			
+			ps = conn.prepareStatement(sql);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			
+			String db_pwd = rs.getString(1);
+			
+			rs.close();
+			
+			if (db_pwd.equals(vo.getPwd())) {
+				bCheck = true;
+				sql = "UPDATE free_board "
+			     	+ "SET name = ?, subject = ?, content = ? " // ? => 문자열을 넣을 땐 ? 선언 후 나중에 값을 넣는게 더 편하다
+					+ "WHERE no = ?";
+				
+				// "UPDATE free_board SET name = " + vo.getname() + ", subject = " + vo.getSubject() + ", content = " + " WHERE no = " + vo.getNo()
+				
+				ps = conn.prepareStatement(sql); 
+				ps.setString(1, vo.getName()); // SQL 문장  1번 ? 에 name 넣기 
+				ps.setString(2, vo.getSubject()); // SQL 문장 2번 ? 에 subject 넣기
+				ps.setString(3, vo.getContent()); // SQL 문장 3번 ? 에 content 넣기
+				ps.setInt(4, vo.getNo());
+				
+				// 실행
+				ps.executeUpdate(); // 기존에 있던 데이터를 수정
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			disconnection();
+		}
+		
+		return bCheck;
+	}
 	// 5. 삭제 DELETE (비밀번호 검사)
 	public boolean boardDelete(int no, String pwd) {
 		boolean bCheck = false;

@@ -49,16 +49,21 @@ public class BoardMainForm extends JFrame implements ActionListener, MouseListen
     	// table
     	bList.table.addMouseListener(this);
     	
-    	// 목록
+    	// 상세보기
+    	// 목록 버튼
     	bDetail.b3.addActionListener(this);
-    	// 삭제
+    	// 삭제 버튼
     	bDetail.b1.addActionListener(this);
-    	// 수정
+    	// 수정 버튼
     	bDetail.b2.addActionListener(this);
     	
     	// 실제 삭제
     	bDelete.b1.addActionListener(this); // 삭제
     	bDelete.b2.addActionListener(this); // 취소
+    	
+    	// 수정
+    	bUpdate.b1.addActionListener(this); // 수정
+    	bUpdate.b2.addActionListener(this); // 취소
     }
     public void listPrint() {
     	// 테이블 전체 데이터 지우기
@@ -203,7 +208,81 @@ public class BoardMainForm extends JFrame implements ActionListener, MouseListen
 		}
 		// 상세보기에서 수정으로
 		else if (e.getSource() == bDetail.b1) {
+			card.show(getContentPane(), "UPDATE");
+			// 수정하려던 글의 정보를 다시 읽고 채우기
+			FreeBoardDAO dao = FreeBoardDAO.newInsatance();
 			
+			String no =  bDetail.no.getText(); // 수정하려는 글의 번호(PK) 가져오기
+			
+			FreeBoardVO vo = dao.boardUpdateData(Integer.parseInt(no));
+			// 웹일 시 : String no = request.getParameter("no");
+			
+			bUpdate.nameTf.setText(vo.getName());
+			bUpdate.subTf.setText(vo.getSubject());
+			bUpdate.ta.setText(vo.getContent());
+			bUpdate.pwdPf.setText("");
+		}
+		// 위 수정 창에서 진행하는 수정
+		else if (e.getSource() == bUpdate.b1) { // 실제 수정
+			String name = bUpdate.nameTf.getText();
+			if (name.trim().isEmpty()) {
+				// 이름 입력 안된 상태
+				JOptionPane.showMessageDialog(this, "이름을 입력하세요"); // this : 윈도우 창
+				// alert() 창
+				bUpdate.nameTf.requestFocus();
+				// name.focus()
+				return;
+			}
+			
+			String subject = bUpdate.subTf.getText();
+			if (subject.trim().isEmpty()) {
+				JOptionPane.showMessageDialog(this, "제목을 입력하세요");
+				// alert() 창
+				bUpdate.subTf.requestFocus();
+				// name.focus()
+				return;
+			}
+			
+			String content = bUpdate.ta.getText();
+			if (content.trim().isEmpty()) {
+				JOptionPane.showMessageDialog(this, "내용을 입력하세요");
+				// alert() 창
+				bUpdate.ta.requestFocus();
+				// name.focus()
+				return;
+			}
+			
+			String pwd = String.valueOf(bUpdate.pwdPf.getPassword());
+			if (pwd.trim().isEmpty()) {
+				JOptionPane.showMessageDialog(this, "비밀번호를 입력하세요");
+				// alert() 창
+				bUpdate.pwdPf.requestFocus();
+				// name.focus()
+				return;
+			}
+			String no = bDetail.no.getText();
+			
+			FreeBoardVO vo = new FreeBoardVO();
+			vo.setNo(Integer.parseInt(no));
+			vo.setName(name);
+			vo.setSubject(subject);
+			vo.setContent(content);
+			vo.setPwd(pwd);
+			
+			FreeBoardDAO dao = FreeBoardDAO.newInsatance();
+			boolean bCheck = dao.boardUpdate(vo);
+			
+			if (bCheck = true) {
+				card.show(getContentPane(), "DETAIL");
+				detailPrint(Integer.parseInt(no));
+			} else {
+				JOptionPane.showMessageDialog(this, "비밀번호가 틀렸습니다");
+				bUpdate.pwdPf.setText("");
+				bUpdate.pwdPf.requestFocus();
+			}
+		}
+		else if (e.getSource() == bUpdate.b2) { // 수정 취소
+			card.show(getContentPane(), "DETAIL");
 		}
 		// 상세보기에서 삭제로
 		else if (e.getSource() == bDetail.b2) {
