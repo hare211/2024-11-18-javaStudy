@@ -189,13 +189,49 @@ public class FreeBoardDAO {
 	}
 	// 4. 수정 UPDATE (비밀번호 검사)
 	// 5. 삭제 DELETE (비밀번호 검사)
+	public boolean boardDelete(int no, String pwd) {
+		boolean bCheck = false;
+		try {
+			// 연결
+			getConnection();
+			// SQL 문장
+			String sql = "SELECT pwd "
+					   + "FROM free_board "
+					   + "WHERE no = " + no;
+			
+			// SQL 문장 전송
+			ps = conn.prepareStatement(sql);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			
+			String db_pwd = rs.getString(1);
+			rs.close();
+			
+			if (db_pwd.equals(pwd)) {
+				bCheck = true;
+				sql = "DELETE FROM free_board "
+					+ "WHERE no = " + no;
+				
+				ps = conn.prepareStatement(sql);
+				ps.executeUpdate();
+			}
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			disconnection();
+		}
+		return bCheck;
+	}
 	// 6. 찾기 LIKE
 	public List<FreeBoardVO> boardFindData(String col, String fd) {
 		// 이름, 제목, 내용으로 찾을 수 있도록
 		List<FreeBoardVO> list = new ArrayList<FreeBoardVO>();
 		try {
 			// 연결
-			getConnection();
+			getConnection(); 
 			String sql = "SELECT no, subject, name, regdate, hit "
 					   + "FROM free_board "
 					   + "WHERE " + col + " LIKE '%'||?||'%'";
