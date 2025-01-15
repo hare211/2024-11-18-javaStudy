@@ -18,9 +18,15 @@ HIT              NUMBER
 public class FoodVO {
 	private int fno, hit;
 	private double score;
-	private String name, type, phone, address, theme, poster, images, time, parking, content;
+	private String name, type, phone, address, theme, poster, images, time, parking, content, price;
 	
 	
+	public String getPrice() {
+		return price;
+	}
+	public void setPrice(String price) {
+		this.price = price;
+	}
 	public int getFno() {
 		return fno;
 	}
