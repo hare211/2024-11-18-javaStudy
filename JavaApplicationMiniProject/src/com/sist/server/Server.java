@@ -1,5 +1,8 @@
 package com.sist.server;
 import java.util.*;
+
+import com.sist.commons.Function;
+
 import java.net.*;
 import java.io.*;
 /*
@@ -81,7 +84,57 @@ public class Server implements Runnable {
 		}
 		// 통신 (Thread 메서드)
 		public void run() { // Client 의 run 메서드
-			
+			try {
+				while (true) {
+					// ------------------------------------------------------------
+					if (in == null) {
+						System.out.println("InputStream is null.");
+						return;
+					}
+					// ------------------------------------------------------------
+					
+					// 사용자 전송한 메세지를 받는다
+					String msg = in.readLine();
+					
+					// ------------------------------------------------------------
+                    if (msg == null) {
+                        System.out.println("Client disconnected");
+                        break;
+                    }
+                    // ------------------------------------------------------------
+                    
+					System.out.println("Client => " + msg);
+					// 100|shim|심청이|여자
+					StringTokenizer st = new StringTokenizer(msg, "|");
+					int protocol = Integer.parseInt(st.nextToken());
+					
+					switch (protocol) {
+					// 로그인 요청 시
+					case Function.LOGIN :
+						id = st.nextToken();
+						name = st.nextToken();
+						sex = st.nextToken();
+						
+						// 1. 전체적으로 로그인 정보 전송
+						messageAll(Function.LOGIN + "|" + id + "|" + name + "|" + sex);
+						// 2. 입장메세지 전송
+						messageAll(Function.WAITCHAT + "|[알림]" + name + " 님이 입장하셨습니다.");
+						// 3. waitVc 에 저장
+						waitVc.add(this);
+						messageTo(Function.MYLOG + "|" + id); // 메인화면으로 이동
+						// 4. 먼저 접속한 사람의 정보 전체를 보낸다
+						for (Client client : waitVc) {
+							messageTo(Function.LOGIN + "|" + client.id + "|" + client.name + "|" + client.sex);
+						}
+						// 5. 방 정보 전송
+						break;
+
+					}
+					closeStreams(); // stream 닫기
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
 		}
 		// 개인별 전송
 		public synchronized void messageTo(String msg) { // stream 닫기
@@ -106,15 +159,15 @@ public class Server implements Runnable {
 			try {
 				if (in != null) {
 					in.close();
-//					in = null;
+					in = null;
 				}
 				if (out != null) {
 					out.close();
-//					out = null;
+					out = null;
 				}
 				if (s != null) {
 					s.close();
-//					s = null;
+					s = null;
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();

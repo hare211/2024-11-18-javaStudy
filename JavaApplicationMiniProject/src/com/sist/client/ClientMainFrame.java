@@ -56,7 +56,30 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable 
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		
+		try {
+			while (true) {
+				String msg = in.readLine(); // 서버에서 보낸 값을 받는다
+				StringTokenizer st = new StringTokenizer(msg, "|");
+				int protocol = Integer.parseInt(st.nextToken());
+				
+				switch (protocol) {
+				case Function.LOGIN :
+					
+					break;
+				case Function.MYLOG :
+					String id = st.nextToken();
+					setTitle(id);
+					login.setVisible(false);
+					setVisible(true);
+					break;
+				case Function.WAITCHAT :
+				
+					break;
+				}
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 	// 서버에 요청(로그인, 채팅 보내기)
 	@Override
