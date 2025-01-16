@@ -15,6 +15,7 @@ public class ClientMainFrame extends JFrame{
 		add(cp);
 		setSize(1600, 900);
 		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
 	
