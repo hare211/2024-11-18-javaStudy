@@ -9,6 +9,7 @@ import com.sist.commons.Function;
 import com.sist.dao.*;
 import java.io.*;
 import java.util.*;
+import java.util.List;
 import java.net.*;
 //	 						상속 => 재사용 => 변경
 
@@ -60,6 +61,7 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable 
 	public void run() {
 		// TODO Auto-generated method stub
 		try {
+			List<String> connUsers = new ArrayList<String>();
 			while (true) {
 				String msg = in.readLine(); // 서버에서 보낸 값을 받는다
 				if (msg == null) {
@@ -69,22 +71,32 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable 
 				int protocol = Integer.parseInt(st.nextToken());
 				
 				switch (protocol) {
+				// id / name / sex
 				case Function.LOGIN :
+					String id =st.nextToken();
+					st.nextToken();
+					st.nextToken();
+					connUsers.add(id);
+					
+					cp.cr.updateUserList(connUsers);
+					/*
 					String[] data = {
 						st.nextToken(),	
 						st.nextToken(),	
 						st.nextToken()	
 					};
-					cp.cp.model.addRow(data);
+					cp.cr.model.addRow(data);
+					*/
 					break;
 				case Function.MYLOG :
-					String id = st.nextToken();
-					setTitle(id);
+					String myId = st.nextToken();
+					setTitle(myId);
 					login.setVisible(false);
 					setVisible(true);
 					break;
 				case Function.WAITCHAT :
-					cp.cp.ta.append(st.nextToken() + "\n");
+					String chatMessage = st.nextToken();
+					cp.cr.appendChat(chatMessage);
 					break;
 				}
 			}

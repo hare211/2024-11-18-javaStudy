@@ -1,10 +1,70 @@
 package com.sist.chat;
 
+import java.util.List;
+
 import javax.swing.*;
 
+import com.sist.client.ControlPanel;
+
 public class ChatRoom extends JPanel {
-	
-    public ChatRoom() {
+    private JTextArea chatArea; // 채팅창
+    private DefaultListModel<String> userListModel; // 접속자 목록 모델
+    private JList<String> userList; // 접속자 목록
+
+    public ChatRoom(ControlPanel cp) {
+        this.setLayout(null);
+
+        // 채팅창 (왼쪽)
+        chatArea = new JTextArea();
+        chatArea.setEditable(false);
+        chatArea.setBorder(BorderFactory.createTitledBorder("채팅창"));
+        JScrollPane chatAreaScrollPane = new JScrollPane(chatArea);
+        chatAreaScrollPane.setBounds(10, 10, 375, 470);
+        this.add(chatAreaScrollPane);
+
+        // 접속자 목록 (오른쪽)
+        userListModel = new DefaultListModel<>();
+        userList = new JList<>(userListModel);
+        userList.setBorder(BorderFactory.createTitledBorder("접속자 목록"));
+        JScrollPane userListScrollPane = new JScrollPane(userList);
+        userListScrollPane.setBounds(390, 10, 90, 470);
+        this.add(userListScrollPane);
+
+        // 하단 패널: 채팅 입력창 + 전송 버튼
+        JPanel inputPanel = new JPanel();
+        inputPanel.setLayout(null);
+        inputPanel.setBounds(10, 480, 480, 100);
+
+        JTextField chatInput = new JTextField();
+        chatInput.setBounds(0, 10, 375, 50);
+
+        JButton sendButton = new JButton("입력");
+        sendButton.setBounds(380, 10, 90, 50);
+
+        inputPanel.add(chatInput);
+        inputPanel.add(sendButton);
+
+        this.add(inputPanel);
+    }
+
+    // 채팅창 업데이트
+    public void appendChat(String message) {
+        chatArea.append(message + "\n");
+    }
+
+    // 접속자 목록 업데이트
+    public void updateUserList(List<String> users) {
+        userListModel.clear(); // 기존 목록 삭제
+        for (String user : users) {
+            userListModel.addElement(user);
+        }
+    }
+}
+/*
+public class ChatRoom extends JPanel {
+	ControlPanel cp;
+    public ChatRoom(ControlPanel cp) {
+    	this.cp = cp;
         JFrame frame = new JFrame("제목 받아오기?");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 600);
@@ -23,6 +83,7 @@ public class ChatRoom extends JPanel {
         // 서버에서 접속 인원 받아올 것임
         String[] users = {"User1", "User2", "User3"};
         JList<String> userList = new JList<>(users);
+        
         userList.setBorder(BorderFactory.createTitledBorder("접속자 목록"));
         JScrollPane userListScrollPane = new JScrollPane(userList);
         userListScrollPane.setBounds(390, 10, 90, 470);
@@ -49,3 +110,4 @@ public class ChatRoom extends JPanel {
         frame.setVisible(true);
     }
 }
+*/
