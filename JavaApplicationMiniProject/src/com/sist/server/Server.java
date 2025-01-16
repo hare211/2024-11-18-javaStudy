@@ -19,11 +19,44 @@ import java.io.*;
  * 				// 내부 클래스를 이용한다
  * 		}
  */
-public class Server {
+public class Server implements Runnable {
+	// 동기화 배열
+	Vector<Client> waitVc = new Vector<Client>();
+	// 접속을 받는다
+	ServerSocket ss;
+	// 클라이언트 - 서버를 연결하는 구분자(PORT)
+	final int PORT = 3355;
+	
+	public Server() {
+		try {
+			// 연결 시 IP, PORT 가 매칭
+			// 자동으로 IP 인식
+			ss = new ServerSocket(PORT);
+			System.out.println("Server Start...");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void run() { // Server 의 run 메서드
+		try {
+			while (true) {
+				Socket s = ss.accept();
+				
+				Client client = new Client(s);
+				client.start();
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	// 통신 담당 클래스
+	//
 	class Client extends Thread {
 		// Client 의 모든 정보
 		String id, name, sex;
-		// Client 와의 연결
+		// Client 와 Server 를 연결하는 끝점
 		Socket s;
 		
 		// 송수신
@@ -32,7 +65,7 @@ public class Server {
 		// 수신
 		BufferedReader in;
 		
-		public Client (Socket s) {
+		public Client (Socket s) { // 생성자
 			try {
 				// 클라이언트 컴퓨터 메모리
 				this.s = s;
@@ -46,13 +79,57 @@ public class Server {
 				ex.printStackTrace();
 			}
 		}
-		// 통신
+		// 통신 (Thread 메서드)
+		public void run() { // Client 의 run 메서드
+			
+		}
 		// 개인별 전송
+		public synchronized void messageTo(String msg) { // stream 닫기
+			try {
+				out.write((msg + "\n").getBytes()); // 서버에서 클라이언트로 msg 전송
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
 		// 접속자 전체 전송
+		public synchronized void messageAll(String msg) { // stream 닫기
+			try {
+				for (Client client : waitVc) {
+					client.messageTo(msg);
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		
+		private void closeStreams() {
+			try {
+				if (in != null) {
+					in.close();
+//					in = null;
+				}
+				if (out != null) {
+					out.close();
+//					out = null;
+				}
+				if (s != null) {
+					s.close();
+//					s = null;
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+
 	}
 	public static void main(String[] args) {
-		
+		// 시작점
+		Server server = new Server();
+		// 서버 설정 => 서버 구동
+		new Thread(server).start(); // 접속 처리 => run()
 	}
+	
+
 }
 
 
