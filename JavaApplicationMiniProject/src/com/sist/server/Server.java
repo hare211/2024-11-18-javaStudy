@@ -28,7 +28,7 @@ public class Server implements Runnable {
 	// 접속을 받는다
 	ServerSocket ss;
 	// 클라이언트 - 서버를 연결하는 구분자(PORT)
-	final int PORT = 3355;
+	final int PORT = 4455;
 	
 	public Server() {
 		try {
@@ -163,15 +163,15 @@ public class Server implements Runnable {
 			try {
 				if (in != null) {
 					in.close();
-					in = null;
+					//in = null;
 				}
 				if (out != null) {
 					out.close();
-					out = null;
+					//out = null;
 				}
 				if (s != null) {
 					s.close();
-					s = null;
+					//s = null;
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();

@@ -27,17 +27,20 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable 
 	public ClientMainFrame() {
 		
 		setLayout(null); // null => 사용자 정의 => 직접 배치
-		mf.setBounds(70, 15, 1450, 45);
+		mf.setBounds(10, 15, 800, 50);
 		add(mf);
-		cp.setBounds(30, 70, 1530, 780);
+		cp.setBounds(10, 75, 820, 570);
 		add(cp);
-		setSize(1600, 900);
+		setSize(850, 700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// 등록
 		// 로그인
 		login.b1.addActionListener(this); // 로그인
 		login.b2.addActionListener(this); // 취소
+		
+		mf.b6.addActionListener(this); // 실시간 채팅
+		mf.b1.addActionListener(this); // 홈
 		
 	}
 	
@@ -67,7 +70,12 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable 
 				
 				switch (protocol) {
 				case Function.LOGIN :
-					
+					String[] data = {
+						st.nextToken(),	
+						st.nextToken(),	
+						st.nextToken()	
+					};
+					cp.cp.model.addRow(data);
 					break;
 				case Function.MYLOG :
 					String id = st.nextToken();
@@ -76,7 +84,7 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable 
 					setVisible(true);
 					break;
 				case Function.WAITCHAT :
-				
+					cp.cp.ta.append(st.nextToken() + "\n");
 					break;
 				}
 			}
@@ -121,13 +129,17 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable 
 //				login.setVisible(false);
 //				setVisible(true);
 			}
+		} else if (e.getSource() == mf.b6) {
+			cp.card.show(cp, "CHAT");
+		} else if (e.getSource() == mf.b1) {
+			cp.card.show(cp, "HOME");
 		}
 	}
 	// 서버 연결
 	public void connection(MemberVO vo) {
 		try {
 			// 서버와 연결
-			s = new Socket("localhost", 3355);
+			s = new Socket("localhost", 4455);
 			// 서버로 전송
 			out = s.getOutputStream();
 			// 서버로 부터 값 받기

@@ -85,6 +85,30 @@ public class FoodDAO {
 		}
 		return list;
 	}
+	// 1-1. 총페이지
+	public int foodTotalPage() {
+		int total = 0;
+		try {
+			getConnection();
+			String sql = "SELECT CEIL(COUNT(*) / 12.0) "
+					   + "FROM food_menupan";
+			
+			ps = conn.prepareStatement(sql);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			
+			total = rs.getInt(1);
+			
+			rs.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			disconnection();
+		}
+		return total;
+	}
 	// 2. 상세보기 => 조회수 증가
 }
 
