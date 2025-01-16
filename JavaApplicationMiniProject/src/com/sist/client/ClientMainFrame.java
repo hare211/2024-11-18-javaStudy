@@ -59,6 +59,9 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable 
 		try {
 			while (true) {
 				String msg = in.readLine(); // 서버에서 보낸 값을 받는다
+				if (msg == null) {
+					break;
+				}
 				StringTokenizer st = new StringTokenizer(msg, "|");
 				int protocol = Integer.parseInt(st.nextToken());
 				

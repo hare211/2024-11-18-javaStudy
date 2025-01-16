@@ -97,7 +97,7 @@ public class Server implements Runnable {
 					String msg = in.readLine();
 					
 					// ------------------------------------------------------------
-                    if (msg == null) {
+                    if (msg == null || msg.trim().isEmpty()) {
                         System.out.println("Client disconnected");
                         break;
                     }
@@ -141,6 +141,8 @@ public class Server implements Runnable {
 			try {
 				out.write((msg + "\n").getBytes()); // 서버에서 클라이언트로 msg 전송
 			} catch (Exception ex) {
+				closeStreams();
+				disconnect();
 				ex.printStackTrace();
 			}
 		}
@@ -151,6 +153,8 @@ public class Server implements Runnable {
 					client.messageTo(msg);
 				}
 			} catch (Exception ex) {
+				closeStreams();
+				disconnect();
 				ex.printStackTrace();
 			}
 		}
@@ -173,6 +177,15 @@ public class Server implements Runnable {
 				ex.printStackTrace();
 			}
 		}
+        private void disconnect() {
+            try {
+                if (s != null && !s.isClosed()) {
+                    s.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
 	}
 	public static void main(String[] args) {
