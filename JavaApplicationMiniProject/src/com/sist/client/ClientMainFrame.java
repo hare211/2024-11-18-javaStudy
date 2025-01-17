@@ -22,6 +22,7 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 	MenuForm mf = new MenuForm(); // 포함 클래스 => 있는 그대로 사용
 	ControlPanel cp = new ControlPanel();
 	Login login = new Login();
+	int selectRow = -1;
 	// 배치
 	// 데이터베이스
 	MemberDAO mDao = MemberDAO.newInstance();
@@ -50,7 +51,8 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 		
 		cp.cp.tf.addActionListener(this); // 채팅입력창
 		cp.cp.table.addMouseListener(this);
-		
+		cp.cp.b2.addActionListener(this); // 정보보기
+		cp.cp.b1.addActionListener(this); // 쪽지보내기
 		
 		addWindowListener(new WindowAdapter() {
 
@@ -202,6 +204,18 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 			cp.cp.tf.requestFocus();
 		} else if (e.getSource() == mf.b7) {
 			cp.card.show(cp, "DETAIL");
+		} else if (e.getSource() == cp.cp.b2) {
+			if (selectRow == -1) {
+				JOptionPane.showMessageDialog(this, "정보 볼 대상을 선택하세요");
+				return;
+			}
+			String id = cp.cp.model.getValueAt(selectRow, 0).toString();
+			MemberVO vo = mDao.memberInfo(id);
+			
+			String info = "이름 : " + vo.getName() + "\n성별 : " + vo.getSex() + "\n이메일 : " + vo.getEmail() + "\n생년월일 : " + vo.getBirthdate().toString()
+					+ "\n주소 : " + vo.getAddress() + "\n등록일 : " + vo.getRegdate().toString();
+			JOptionPane.showMessageDialog(this, info);
+			
 		}
 	}
 	// 서버 연결
@@ -229,7 +243,7 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == cp.cp.table) {
-			int selectRow = cp.cp.table.getSelectedRow();
+			 selectRow = cp.cp.table.getSelectedRow();
 			String myId = getTitle();
 			String id = cp.cp.model.getValueAt(selectRow, 0).toString();
 			if (myId.equals(id)) {
