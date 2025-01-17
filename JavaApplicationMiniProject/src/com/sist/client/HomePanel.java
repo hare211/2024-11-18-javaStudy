@@ -84,7 +84,18 @@ public class HomePanel extends JPanel implements MouseListener, ActionListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		for (int i = 0; i < imgs.length; i++) {
+			if (e.getSource() == imgs[i]) {
+				if (e.getClickCount() == 2) {
+					String fno = imgs[i].getToolTipText();
+					fno = fno.substring(fno.lastIndexOf("^") + 1);
+					FoodVO vo = dao.foodDetailData(Integer.parseInt(fno));
+					
+					cp.fdp.detailPrint(i, vo);
+					cp.card.show(cp, "DETAIL");
+				}
+			}
+		}
 	}
 
 	@Override

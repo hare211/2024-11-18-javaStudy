@@ -13,7 +13,7 @@ import java.util.List;
 import java.net.*;
 //	 						상속 => 재사용 => 변경
 
-public class ClientMainFrame extends JFrame implements ActionListener, Runnable {
+public class ClientMainFrame extends JFrame implements ActionListener, Runnable, MouseListener, KeyListener {
 	// 네트워크 통신
 	Socket s; // 연걸점
 	OutputStream out; // 보내는 통로
@@ -39,13 +39,19 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable 
 		// 로그인
 		login.b1.addActionListener(this); // 로그인
 		login.b2.addActionListener(this); // 취소
+		login.tf.addKeyListener(this);
+		login.pf.addKeyListener(this);
 		
 		mf.b6.addActionListener(this); // 실시간 채팅
 		mf.b1.addActionListener(this); // 홈
 		mf.b2.addActionListener(this); // 맛집
 		mf.b3.addActionListener(this); // 검색
+		mf.b7.addActionListener(this); // 뉴스
 		
 		cp.cp.tf.addActionListener(this); // 채팅입력창
+		cp.cp.table.addMouseListener(this);
+		
+		
 		addWindowListener(new WindowAdapter() {
 
 			@Override
@@ -194,6 +200,8 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable 
 			}
 			cp.cp.tf.setText("");
 			cp.cp.tf.requestFocus();
+		} else if (e.getSource() == mf.b7) {
+			cp.card.show(cp, "DETAIL");
 		}
 	}
 	// 서버 연결
@@ -215,5 +223,66 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable 
 		}
 		// 서버로부터 값을 받아서 출력
 		new Thread(this).start(); // run 메서드 호출
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getSource() == cp.cp.table) {
+			int selectRow = cp.cp.table.getSelectedRow();
+			String myId = getTitle();
+			String id = cp.cp.model.getValueAt(selectRow, 0).toString();
+			if (myId.equals(id)) {
+				cp.cp.b1.setEnabled(false);
+				cp.cp.b2.setEnabled(false);
+			} else {
+				cp.cp.b1.setEnabled(true);
+				cp.cp.b2.setEnabled(true);				
+			}
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			login.b1.doClick();
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

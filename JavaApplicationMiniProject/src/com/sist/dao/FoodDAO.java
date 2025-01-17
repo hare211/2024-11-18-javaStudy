@@ -213,6 +213,43 @@ public class FoodDAO {
 		return list;
 	}
 	
+	public FoodVO foodDetailData(int fno) {
+		FoodVO vo = new FoodVO();
+		try {
+			getConnection();
+			String sql = "SELECT name, type, phone, address, score, "
+					          + "theme, poster, images, time, parking, "
+					          + "content, price "
+					   + "FROM food_menupan "
+					   + "WHERE fno = " + fno;
+			ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			
+			vo.setName(rs.getString(1));
+			vo.setType(rs.getString(2));
+			vo.setPhone(rs.getString(3));
+			vo.setAddress(rs.getString(4));
+			vo.setScore(rs.getDouble(5));
+			vo.setTheme(rs.getString(6));
+			vo.setPoster("https://www.menupan.com" + rs.getString(7));
+			vo.setImages(rs.getString(8));
+			vo.setTime(rs.getString(9));
+			vo.setParking(rs.getString(10));
+			vo.setContent(rs.getString(11));
+			vo.setPrice(rs.getString(12));
+			
+			rs.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			disconnection();
+		}
+		
+		return vo;
+	}
 }
 
 

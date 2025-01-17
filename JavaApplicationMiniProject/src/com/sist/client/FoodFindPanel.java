@@ -10,7 +10,7 @@ import com.sist.vo.*;
 import com.sist.commons.ImageChange;
 import com.sist.dao.*;
 
-public class FoodFindPanel extends JPanel implements ActionListener {
+public class FoodFindPanel extends JPanel implements ActionListener, MouseListener {
 	ControlPanel cp;
 	JTable table;
 	DefaultTableModel model;
@@ -77,6 +77,7 @@ public class FoodFindPanel extends JPanel implements ActionListener {
 		
 		b.addActionListener(this);
 		tf.addActionListener(this);
+		table.addMouseListener(this);
 	}
 
 	@Override
@@ -113,6 +114,44 @@ public class FoodFindPanel extends JPanel implements ActionListener {
 				ex.printStackTrace();
 			}
 		}
+		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getSource() == table) {
+			if (e.getClickCount() == 2) {
+				int row = table.getSelectedRow();
+				String fno = model.getValueAt(row, 0).toString();
+				FoodVO vo = dao.foodDetailData(Integer.parseInt(fno));
+				cp.fdp.detailPrint(3, vo);
+				cp.card.show(cp, "DETAIL");
+			}
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 	
