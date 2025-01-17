@@ -93,9 +93,9 @@ public class FoodDetailPanel extends JPanel implements ActionListener {
 		
 		contentTa = new JTextPane();
 		JScrollPane js = new JScrollPane(contentTa);
-		contentTa.setBounds(330, 400, 430, 120);
-		contentTa.setEnabled(false);
+		js.setBounds(330, 400, 430, 120);
 		add(js);
+		contentTa.setEnabled(false);
 		
 		b1 = new JButton("찜하기");
 		b2 = new JButton("예약하기");

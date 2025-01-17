@@ -250,6 +250,37 @@ public class FoodDAO {
 		
 		return vo;
 	}
+	
+	public List<FoodVO> foodTop10() {
+		List<FoodVO> list = new ArrayList<FoodVO>();
+		
+		try {
+			getConnection();
+			String sql = "SELECT name, poster, score, rownum "
+				       + "FROM (SELECT name, poster, score "
+					         + "FROM food_menupan "
+					         + "ORDER BY score DESC) "
+					   + "WHERE rownum <= 10";
+			
+			ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				FoodVO vo = new FoodVO();
+				vo.setName(rs.getString(1));
+				vo.setPoster(rs.getString(2));
+				vo.setScore(rs.getDouble(3));
+				list.add(vo);
+			}
+			
+			rs.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			disconnection();
+		}
+		return list;
+	}
 }
 
 

@@ -44,6 +44,7 @@ public class FoodFindPanel extends JPanel implements ActionListener, MouseListen
 		};
 		table = new JTable(model);
 		table.setRowHeight(40);
+		table.getTableHeader().setReorderingAllowed(false);
 		JScrollPane js1 = new JScrollPane(table);
 		
 		for (int i = 0; i < col.length; i++) {

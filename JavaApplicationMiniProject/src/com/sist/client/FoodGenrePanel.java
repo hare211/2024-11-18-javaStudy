@@ -103,7 +103,17 @@ public class FoodGenrePanel extends JPanel  implements MouseListener, ActionList
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		for (int i = 0; i < imgs.length; i++) {
+			if (e.getSource() == imgs[i]) {
+				if (e.getClickCount() == 2) {
+					String fno = imgs[i].getToolTipText();
+					fno = fno.substring(fno.lastIndexOf("^") + 1);
+					FoodVO vo = dao.foodDetailData(Integer.parseInt(fno));
+					cp.fdp.detailPrint(2, vo);
+					cp.card.show(cp, "DETAIL");
+				}
+			}
+		}
 	}
 
 
