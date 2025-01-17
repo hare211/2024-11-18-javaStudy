@@ -110,6 +110,109 @@ public class FoodDAO {
 		return total;
 	}
 	// 2. 상세보기 => 조회수 증가
+	// 홈 / 맛집 / 맛집 검색 => 상세보기
+	// 3. 장르별 출력
+	public List<FoodVO> foodGenreData(int page, String genre){
+		List<FoodVO> list = new ArrayList<FoodVO>();
+		try {
+			getConnection();
+			String sql = "SELECT fno, name, poster, num "
+					   + "FROM (SELECT fno, name, poster, rownum as num "
+					         + "FROM (SELECT /*+ INDEX_ASC(food_menupan fm_fno_pk) */ fno, name, poster "
+					               + "FROM food_menupan "
+					               + "WHERE type LIKE '%'||?||'%')) "
+					   + "WHERE num BETWEEN ? AND ?";
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, genre);
+			
+			int rowSize = 12;
+			int start = (rowSize * page) - (rowSize - 1);
+			int end = rowSize * page;
+			
+			ps.setInt(2, start);
+			ps.setInt(3, end);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				FoodVO vo = new FoodVO();
+				vo.setFno(rs.getInt(1));
+				vo.setName(rs.getString(2));
+				vo.setPoster("https://www.menupan.com" + rs.getString(3));
+				
+				list.add(vo);
+			}
+			rs.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			disconnection();
+		}
+		return list;
+	}
+	// 3-1. 장르별 총페이지
+	public int foodGenreTotalPage(String genre) {
+		int total = 0;
+		try {
+			getConnection();
+			String sql = "SELECT CEIL(COUNT(*)) / 12.0 "
+					   + "FROM food_menupan "
+					   + "WHERE type "
+					   + "LIKE '%'||?||'%'";
+			
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, genre);
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			total = rs.getInt(1);
+			rs.close();
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			disconnection();
+		}
+		
+		return total;
+	}
+	// 4. 검색
+	public List<FoodVO> foodFindData(String address) {
+		List<FoodVO> list = new ArrayList<FoodVO>();
+		try {
+			getConnection();
+			String sql = "SELECT fno, poster, name, address, type, score, rownum "
+					   + "FROM food_menupan "
+					   + "WHERE address LIKE '%'||?||'%' AND rownum <= 10 "
+					   + "ORDER BY fno ASC";
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, address);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				FoodVO vo = new FoodVO();
+				vo.setFno(rs.getInt(1));
+				vo.setPoster("https://www.menupan.com" + rs.getString(2));
+				vo.setName(rs.getString(3));
+				vo.setAddress(rs.getString(4));
+				vo.setType(rs.getString(5));
+				vo.setScore(rs.getDouble(6));
+				
+				list.add(vo);
+			}
+			rs.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			disconnection();
+		}
+		return list;
+	}
+	
 }
 
 

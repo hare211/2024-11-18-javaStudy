@@ -42,6 +42,8 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable 
 		
 		mf.b6.addActionListener(this); // 실시간 채팅
 		mf.b1.addActionListener(this); // 홈
+		mf.b2.addActionListener(this); // 맛집
+		mf.b3.addActionListener(this); // 검색
 		
 	}
 	
@@ -145,6 +147,10 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable 
 			cp.card.show(cp, "CHAT");
 		} else if (e.getSource() == mf.b1) {
 			cp.card.show(cp, "HOME");
+		} else if (e.getSource() == mf.b2) {
+			cp.card.show(cp, "FOOD");
+		} else if (e.getSource() == mf.b3) {
+			cp.card.show(cp, "FIND");
 		}
 	}
 	// 서버 연결
