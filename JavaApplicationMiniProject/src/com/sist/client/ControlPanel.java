@@ -9,7 +9,7 @@ import com.sist.chat.*;
 import javax.swing.*;
 public class ControlPanel extends JPanel {
     HomePanel hp;
-    ChatRoom cr;
+    ChatPanel cp;
     FoodGenrePanel fgp;
     FoodFindPanel ffp;
     CardLayout card = new CardLayout();
@@ -18,8 +18,8 @@ public class ControlPanel extends JPanel {
         setLayout(card);
         hp = new HomePanel(this);
         add("HOME", hp);
-        cr = new ChatRoom(this);
-        add("CHAT", cr);
+        cp = new ChatPanel(this);
+        add("CHAT", cp);
         fgp = new FoodGenrePanel(this);
         add("FOOD", fgp);
         ffp = new FoodFindPanel(this);

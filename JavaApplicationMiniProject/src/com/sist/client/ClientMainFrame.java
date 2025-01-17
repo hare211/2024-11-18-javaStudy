@@ -45,6 +45,20 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable 
 		mf.b2.addActionListener(this); // 맛집
 		mf.b3.addActionListener(this); // 검색
 		
+		cp.cp.tf.addActionListener(this); // 채팅입력창
+		addWindowListener(new WindowAdapter() {
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+				try {
+					out.write((Function.EXIT + "|\n").getBytes());
+				} catch (Exception ex) {
+					// TODO: handle exception
+				}
+			}
+			
+		});
 	}
 	
 	public static void main(String[] args) {
@@ -72,34 +86,49 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable 
 				StringTokenizer st = new StringTokenizer(msg, "|");
 				int protocol = Integer.parseInt(st.nextToken());
 				
-				switch (protocol) {
-				// id / name / sex
-				case Function.LOGIN :
-					String id =st.nextToken();
-					st.nextToken();
-					st.nextToken();
-					connUsers.add(id);
-					
-					cp.cr.updateUserList(connUsers);
-					/*
-					String[] data = {
-						st.nextToken(),	
-						st.nextToken(),	
-						st.nextToken()	
-					};
-					cp.cr.model.addRow(data);
-					*/
-					break;
-				case Function.MYLOG :
-					String myId = st.nextToken();
-					setTitle(myId);
-					login.setVisible(false);
-					setVisible(true);
-					break;
-				case Function.WAITCHAT :
-					String chatMessage = st.nextToken();
-					cp.cr.appendChat(chatMessage);
-					break;
+				switch(protocol)
+				{
+				  case Function.LOGIN:
+				  {
+					  String[] data= {
+						st.nextToken(),
+						st.nextToken(),
+						st.nextToken()
+					  };
+					  cp.cp.model.addRow(data);
+				  }
+				  break;
+				  case Function.MYLOG:
+				  {
+					  String id=st.nextToken();
+					  setTitle(id);
+					  login.setVisible(false);
+					  setVisible(true);
+				  }
+				  break;
+				  case Function.WAITCHAT:
+				  {
+					  cp.cp.ta.append(st.nextToken()+"\n");
+				  }
+				  break;
+				  case Function.MYEXIT :
+				  {
+					  dispose();
+					  System.exit(0);
+				  }
+				  break;
+				  case Function.EXIT :
+				  {
+					  String yid = st.nextToken();
+					  for (int i = 0; i < cp.cp.model.getColumnCount(); i++) {
+						String id = cp.cp.model.getValueAt(i, 0).toString();
+						if (yid.equals(id)) {
+							cp.cp.model.removeRow(i);
+							break;
+						}
+					}
+				  }
+				  break;
 				}
 			}
 		} catch (Exception ex) {
@@ -151,6 +180,20 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable 
 			cp.card.show(cp, "FOOD");
 		} else if (e.getSource() == mf.b3) {
 			cp.card.show(cp, "FIND");
+		} else if (e.getSource() == cp.cp.tf) {
+			String msg = cp.cp.tf.getText();
+			if (msg.trim().isEmpty()) {
+				cp.cp.tf.requestFocus();
+				return;
+			}
+			
+			try {
+				out.write((Function.WAITCHAT + "|" + msg + "\n").getBytes());
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			cp.cp.tf.setText("");
+			cp.cp.tf.requestFocus();
 		}
 	}
 	// 서버 연결
@@ -169,7 +212,6 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable 
 						+ vo.getName() + "|" 
 						+ vo.getSex() + "\n").getBytes());
 		} catch (Exception ex) {
-			ex.printStackTrace();
 		}
 		// 서버로부터 값을 받아서 출력
 		new Thread(this).start(); // run 메서드 호출

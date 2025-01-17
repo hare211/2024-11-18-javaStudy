@@ -37,7 +37,6 @@ public class Server implements Runnable {
 			ss = new ServerSocket(PORT);
 			System.out.println("Server Start...");
 		} catch (Exception ex) {
-			ex.printStackTrace();
 		}
 	}
 	
@@ -51,7 +50,6 @@ public class Server implements Runnable {
 				client.start();
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
 		}
 	}
 	// 통신 담당 클래스
@@ -79,7 +77,6 @@ public class Server implements Runnable {
 				
 				// Encoding : 보낼 때, Decoding : 받을 때(UTF - 8)
 			} catch (Exception ex) {
-				ex.printStackTrace();
 			}
 		}
 		// 통신 (Thread 메서드)
@@ -128,12 +125,34 @@ public class Server implements Runnable {
 						}
 						// 5. 방 정보 전송
 						break;
+					  case Function.WAITCHAT :
+					  {
+						  messageAll(Function.WAITCHAT + "|[" + id + "] " + st.nextToken());
+					  }
+					  break;
+					  case Function.EXIT :
+					  {
+						  messageAll(Function.EXIT + "|" + id);
+						  messageAll(Function.WAITCHAT + "|[알림]" + id + " 님이 퇴장하셨습니다.");
+						  for (int i = 0; i < waitVc.size(); i++) {
+							Client c = waitVc.get(i);
+							if (c.id.equals(id)) {
+								messageTo(Function.MYEXIT + "|");
+								waitVc.remove(i);
+								try {
+									in.close();
+									out.close();
+								} catch (Exception ex) {
+									// TODO: handle exception
+								}
+							}
+						}
+					  }
+					  break;
 
 					}
-					closeStreams(); // stream 닫기
 				}
 			} catch (Exception ex) {
-				ex.printStackTrace();
 			}
 		}
 		// 개인별 전송
@@ -141,21 +160,20 @@ public class Server implements Runnable {
 			try {
 				out.write((msg + "\n").getBytes()); // 서버에서 클라이언트로 msg 전송
 			} catch (Exception ex) {
-				closeStreams();
-				disconnect();
-				ex.printStackTrace();
 			}
 		}
 		// 접속자 전체 전송
 		public synchronized void messageAll(String msg) { // stream 닫기
 			try {
-				for (Client client : waitVc) {
-					client.messageTo(msg);
+				for (int i = 0; i < waitVc.size(); i++) {
+					Client c = waitVc.get(i);
+					try {
+						c.messageTo(msg);
+					} catch (Exception ex) {
+						waitVc.remove(i);
+					}
 				}
 			} catch (Exception ex) {
-				closeStreams();
-				disconnect();
-				ex.printStackTrace();
 			}
 		}
 		
@@ -183,7 +201,6 @@ public class Server implements Runnable {
                     s.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
             }
         }
 
