@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FriendDAO {
 	private Connection conn;
@@ -81,5 +83,32 @@ public class FriendDAO {
 		} finally {
 			disconnection();
 		}
+	}
+	
+	public List<String> getFriendList(String userId) {
+	    List<String> friends = new ArrayList<>();
+	    try {
+	        getConnection();
+	        String sql = "SELECT receiver_id FROM friend WHERE requester_id = ? AND status = 'P' AND receiver_id != ? UNION " +
+	                "SELECT requester_id FROM friend WHERE receiver_id = ? AND status = 'P' AND requester_id != ?";
+	        ps = conn.prepareStatement(sql);
+	        ps.setString(1, userId);
+	        ps.setString(2, userId);  // 본인 ID를 제외
+	        ps.setString(3, userId);
+	        ps.setString(4, userId);  // 본인 ID를 제외
+	        
+	        ResultSet rs = ps.executeQuery();
+	        rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            friends.add(rs.getString(1)); // 친구 ID
+	        }
+	        rs.close();
+	    } catch (Exception ex) {
+	        ex.printStackTrace();
+	    } finally {
+	        disconnection();
+	    }
+	    return friends;
 	}
 }

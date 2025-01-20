@@ -12,7 +12,7 @@ public class ChatPanel extends JPanel implements ActionListener {
     JTextField tf;
     JTable table;
     DefaultTableModel model;
-    JButton b1, b2, inputChatBtn, addFriendBtn;
+    JButton b1, b2, inputChatBtn, addFriendBtn, listFriendBtn;
     ControlPanel cp;
     ClientMainFrame cmf;
 
@@ -27,6 +27,7 @@ public class ChatPanel extends JPanel implements ActionListener {
     	b1=new JButton("쪽지보내기");
     	b2=new JButton("정보보기");
     	addFriendBtn = new JButton("친구 추가");
+    	listFriendBtn = new JButton("친구 목록");
     	
     	String[] col={"아이디","이름","성별"};
     	String[][] row=new String[0][3];
@@ -62,8 +63,8 @@ public class ChatPanel extends JPanel implements ActionListener {
     	p.add(b1);
     	p.add(b2);
     	p.add(addFriendBtn);
-    	
-    	p.setBounds(510, 330, 280, 35);
+    	p.add(listFriendBtn);
+    	p.setBounds(510, 330, 280, 60);
     	add(p);
     	
 

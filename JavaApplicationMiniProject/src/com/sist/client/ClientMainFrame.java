@@ -29,6 +29,7 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 	// 배치
 	// 데이터베이스
 	MemberDAO mDao = MemberDAO.newInstance();
+	FriendDAO fDao = FriendDAO.newInstance();
 	public ClientMainFrame() {
 		
 		setLayout(null); // null => 사용자 정의 => 직접 배치
@@ -59,7 +60,7 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 		cp.cp.b1.addActionListener(this); // 쪽지보내기
 		
     	cp.cp.addFriendBtn.addActionListener(this); // 친구추가
-		
+		cp.cp.listFriendBtn.addActionListener(this); // 친구목록
 		addWindowListener(new WindowAdapter() {
 
 			@Override
@@ -259,6 +260,20 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 	            ex.printStackTrace();
 	            JOptionPane.showMessageDialog(this, "친구 요청에 실패했습니다.");
 	        }
+		} else if (e.getSource() == cp.cp.listFriendBtn) {
+			String currentUserId = getCurrentUserId();
+			
+			List<String> friendList = fDao.getFriendList(currentUserId);
+			
+			if (friendList.isEmpty()) {
+				JOptionPane.showMessageDialog(this, "친구 목록이 비어있습니다.");
+			} else {
+				StringBuilder friends = new StringBuilder("친구 목록:\n");
+				for (String friend : friendList) {
+					friends.append(friend).append("\n");
+				}
+				JOptionPane.showMessageDialog(this, friends.toString(), "친구 목록", JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 	}
 	// 서버 연결
