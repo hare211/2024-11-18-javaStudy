@@ -9,7 +9,7 @@ public class ChatPanel extends JPanel{
     JTextField tf;
     JTable table;
     DefaultTableModel model;
-    JButton b1,b2, inputChatBtn;
+    JButton b1, b2, inputChatBtn;
     
     ControlPanel cp;
     public ChatPanel(ControlPanel cp)

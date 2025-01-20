@@ -12,7 +12,7 @@ import java.util.*;
 import java.util.List;
 import java.net.*;
 //	 						상속 => 재사용 => 변경
-
+// 메뉴, 채팅만 인터페이스 구현, 각 메뉴별 상호작용은 프레임에서 구현
 public class ClientMainFrame extends JFrame implements ActionListener, Runnable, MouseListener, KeyListener {
 	// 네트워크 통신
 	Socket s; // 연걸점
@@ -48,11 +48,14 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 		mf.b2.addActionListener(this); // 맛집
 		mf.b3.addActionListener(this); // 검색
 		mf.b7.addActionListener(this); // 뉴스
+		mf.b5.addActionListener(this); // 커뮤니티
 		
 		cp.cp.tf.addActionListener(this); // 채팅입력창
 		cp.cp.table.addMouseListener(this);
 		cp.cp.b2.addActionListener(this); // 정보보기
 		cp.cp.b1.addActionListener(this); // 쪽지보내기
+		
+		
 		
 		addWindowListener(new WindowAdapter() {
 
@@ -103,7 +106,7 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 						st.nextToken(),
 						st.nextToken()
 					  };
-					  cp.cp.model.addRow(data);
+					  cp.cp.model.addRow(data); // ChatPanel 에서 접속인원 출력
 				  }
 				  break;
 				  case Function.MYLOG:
@@ -131,7 +134,7 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 					  for (int i = 0; i < cp.cp.model.getColumnCount(); i++) {
 						String id = cp.cp.model.getValueAt(i, 0).toString();
 						if (yid.equals(id)) {
-							cp.cp.model.removeRow(i);
+							cp.cp.model.removeRow(i); // ChatPanel 에서 접속인원 제거
 							break;
 						}
 					}
@@ -188,6 +191,8 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 			cp.card.show(cp, "FOOD");
 		} else if (e.getSource() == mf.b3) {
 			cp.card.show(cp, "FIND");
+		} else if (e.getSource() == mf.b5) {
+			cp.card.show(cp, "BLIST");
 		} else if (e.getSource() == cp.cp.tf) {
 			String msg = cp.cp.tf.getText();
 			if (msg.trim().isEmpty()) {
