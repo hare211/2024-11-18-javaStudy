@@ -23,7 +23,9 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 	ControlPanel cp = new ControlPanel();
 	Login login = new Login();
 	int selectRow = -1;
-	private List<String> userIds = new ArrayList<>();
+	private List<User> users = new ArrayList<>();
+	private String currentUserId;
+	User user;
 	// 배치
 	// 데이터베이스
 	MemberDAO mDao = MemberDAO.newInstance();
@@ -56,7 +58,7 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 		cp.cp.b2.addActionListener(this); // 정보보기
 		cp.cp.b1.addActionListener(this); // 쪽지보내기
 		
-		
+    	cp.cp.addFriendBtn.addActionListener(this); // 친구추가
 		
 		addWindowListener(new WindowAdapter() {
 
@@ -89,7 +91,6 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 	public void run() {
 		// TODO Auto-generated method stub
 		try {
-			List<String> connUsers = new ArrayList<String>();
 			while (true) {
 				String msg = in.readLine(); // 서버에서 보낸 값을 받는다
 				if (msg == null) {
@@ -106,8 +107,13 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 					    String name = st.nextToken();
 					    String sex = st.nextToken();
 
+					    // 현재 사용자 ID 설정 (로그인 시)
+					    if (currentUserId == null) {
+					        currentUserId = id; // 첫 로그인한 ID를 현재 사용자 ID로 설정
+					    }
 					    // ID 저장
-					    userIds.add(id);
+					    user = new User(id, name, sex);
+					    users.add(user);
 
 					    // 접속 인원 출력
 					    cp.cp.model.addRow(new String[]{id, name, sex});
@@ -134,15 +140,16 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 				  break;
 				  case Function.EXIT :
 				  {
-					  String yid = st.nextToken();
+					  String exitId = st.nextToken();
+					  users.removeIf(user -> user.getId().equals(exitId));
 					  for (int i = 0; i < cp.cp.model.getColumnCount(); i++) {
 						String id = cp.cp.model.getValueAt(i, 0).toString();
-						if (yid.equals(id)) {
+						if (exitId.equals(id)) {
 							cp.cp.model.removeRow(i); // ChatPanel 에서 접속인원 제거
 							break;
 						}
 					}
-					  userIds.remove(yid);
+					
 				  }
 				  break;
 				}
@@ -151,6 +158,11 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 			ex.printStackTrace();
 		}
 	}
+	public String getCurrentUserId() {
+	    return currentUserId;
+	}
+
+
 	// 서버에 요청(로그인, 채팅 보내기)
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -226,6 +238,27 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 					+ "\n주소 : " + vo.getAddress() + "\n등록일 : " + vo.getRegdate().toString();
 			JOptionPane.showMessageDialog(this, info);
 			
+		} else if (e.getSource() == cp.cp.addFriendBtn) {
+	        // JTable에서 선택된 행 확인
+	        int selectedRow = cp.cp.table.getSelectedRow();
+
+
+	        // 선택된 유저 ID와 현재 사용자 ID 가져오기
+	        String receiverId = cp.cp.model.getValueAt(selectedRow, 0).toString(); // 선택된 유저 ID
+	        String requesterId = getCurrentUserId();
+	        
+	        
+	        try {
+	            // 친구 요청
+	            FriendDAO dao = FriendDAO.newInstance();
+	            dao.addFriend(requesterId, receiverId);
+	            
+	            // 성공 메시지
+	            JOptionPane.showMessageDialog(this, "친구 요청을 보냈습니다.");
+	        } catch (Exception ex) {
+	            ex.printStackTrace();
+	            JOptionPane.showMessageDialog(this, "친구 요청에 실패했습니다.");
+	        }
 		}
 	}
 	// 서버 연결
@@ -259,9 +292,11 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 			if (myId.equals(id)) {
 				cp.cp.b1.setEnabled(false);
 				cp.cp.b2.setEnabled(false);
+				cp.cp.addFriendBtn.setEnabled(false);
 			} else {
 				cp.cp.b1.setEnabled(true);
 				cp.cp.b2.setEnabled(true);				
+				cp.cp.addFriendBtn.setEnabled(true);
 			}
 		}
 	}

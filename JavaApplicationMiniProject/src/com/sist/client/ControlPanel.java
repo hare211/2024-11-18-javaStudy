@@ -18,7 +18,7 @@ public class ControlPanel extends JPanel {
     BoardDetail bDetail;
     BoardReply bReply;
     BoardUpdate bUpdate;
-    
+    ClientMainFrame cmf;
     CardLayout card = new CardLayout();
     
     public ControlPanel() {
@@ -45,6 +45,7 @@ public class ControlPanel extends JPanel {
         bUpdate = new BoardUpdate(this);
         add("BUPDATE", bUpdate);
     }
+    
 
 }
 

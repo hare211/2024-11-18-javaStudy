@@ -2,16 +2,20 @@ package com.sist.client;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.*;
+
+import com.sist.dao.FriendDAO;
+
 import java.awt.event.*;
 
-public class ChatPanel extends JPanel{
+public class ChatPanel extends JPanel implements ActionListener {
     JTextArea ta;
     JTextField tf;
     JTable table;
     DefaultTableModel model;
-    JButton b1, b2, inputChatBtn, addFriend;
-    
+    JButton b1, b2, inputChatBtn, addFriendBtn;
     ControlPanel cp;
+    ClientMainFrame cmf;
+
     public ChatPanel(ControlPanel cp)
     {
     	this.cp=cp;
@@ -22,7 +26,7 @@ public class ChatPanel extends JPanel{
     	tf=new JTextField();
     	b1=new JButton("쪽지보내기");
     	b2=new JButton("정보보기");
-    	addFriend = new JButton("친구 추가");
+    	addFriendBtn = new JButton("친구 추가");
     	
     	String[] col={"아이디","이름","성별"};
     	String[][] row=new String[0][3];
@@ -57,11 +61,18 @@ public class ChatPanel extends JPanel{
     	JPanel p=new JPanel();
     	p.add(b1);
     	p.add(b2);
-    	p.add(addFriend);
+    	p.add(addFriendBtn);
     	
     	p.setBounds(510, 330, 280, 35);
     	add(p);
     	
-    	
+
     }
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getSource() == addFriendBtn) {
+
+	    }
+	}
 }
