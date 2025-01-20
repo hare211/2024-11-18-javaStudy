@@ -8,6 +8,7 @@ import java.awt.event.*;
 // detail.jsp
 import javax.swing.*;
 
+import com.sist.dao.ReplyBoardDAO;
 import com.sist.vo.ReplyBoardVO;
 public class BoardDetail extends JPanel implements ActionListener {
      JLabel titleLa, nameLa, noLa, subLa, dayLa, hitLa;
@@ -95,7 +96,9 @@ public class BoardDetail extends JPanel implements ActionListener {
     	 b4.addActionListener(this); // 답변
      }
         
-        public void print(ReplyBoardVO vo) {
+        public void print(int type, int n) {
+        	ReplyBoardDAO dao = ReplyBoardDAO.newInstance();
+        	ReplyBoardVO vo = dao.boardDetailData(type, n);
         	name.setText(vo.getName());
         	no.setText(String.valueOf(vo.getNo()));
         	day.setText(vo.getDbDay());
@@ -110,8 +113,14 @@ public class BoardDetail extends JPanel implements ActionListener {
 			if (e.getSource() == b3) {
 				cp.card.show(cp, "BLIST");
 				cp.bList.print(); // 조회수 최신화
-			} else if (e.getSource() == b1) {
+			} else if (e.getSource() == b1) { // 수정
+				cp.bUpdate.pwdPf.setText("");
+				String strNo = no.getText();
+				ReplyBoardDAO dao = ReplyBoardDAO.newInstance();
+				ReplyBoardVO vo = dao.boardUpdateData(Integer.parseInt(strNo));
 				
+				cp.card.show(cp, "BUPDATE");
+				cp.bUpdate.print(vo);
 			} else if (e.getSource() == b2) {
 				
 			} else if (e.getSource() == b4) {

@@ -166,10 +166,9 @@ public class BoardList extends JPanel implements ActionListener, MouseListener {
 			if (e.getClickCount() == 2) {
 				int row = table.getSelectedRow(); // 클릭한 게시글 row 읽기
 				String no = model.getValueAt(row, 0).toString(); // 0 : Column => 글 번호(no), 테이블 컬럼의 맨 첫 번째 값
-				ReplyBoardVO vo = dao.boardDetailData(Integer.parseInt(no));
 				
 				cp.card.show(cp, "BDETAIL");
-				cp.bDetail.print(vo);
+				cp.bDetail.print(1, Integer.parseInt(no));
 			}
 		}
 	}

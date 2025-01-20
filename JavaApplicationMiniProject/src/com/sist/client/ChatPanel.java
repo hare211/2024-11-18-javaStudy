@@ -9,7 +9,7 @@ public class ChatPanel extends JPanel{
     JTextField tf;
     JTable table;
     DefaultTableModel model;
-    JButton b1, b2, inputChatBtn;
+    JButton b1, b2, inputChatBtn, addFriend;
     
     ControlPanel cp;
     public ChatPanel(ControlPanel cp)
@@ -22,6 +22,7 @@ public class ChatPanel extends JPanel{
     	tf=new JTextField();
     	b1=new JButton("쪽지보내기");
     	b2=new JButton("정보보기");
+    	addFriend = new JButton("친구 추가");
     	
     	String[] col={"아이디","이름","성별"};
     	String[][] row=new String[0][3];
@@ -54,7 +55,9 @@ public class ChatPanel extends JPanel{
     	add(js1);
     	
     	JPanel p=new JPanel();
-    	p.add(b1);p.add(b2);
+    	p.add(b1);
+    	p.add(b2);
+    	p.add(addFriend);
     	
     	p.setBounds(510, 330, 280, 35);
     	add(p);

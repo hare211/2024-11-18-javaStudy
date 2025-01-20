@@ -137,20 +137,23 @@ public class ReplyBoardDAO {
 		}
 	}
 	// 3. 상세보기(WHERE)
-	public ReplyBoardVO boardDetailData(int no) {
+	public ReplyBoardVO boardDetailData(int type, int no) {
 		ReplyBoardVO vo = new ReplyBoardVO();
 		
 		try {
 			// 상세보기 : 선택된 데이터로부터 Primary Key 매개변수로 받아야 함
 			getConnection();
 			// 조회수 증가
+			if (type == 1) {
+				
 			String sql = "UPDATE replyBoard "
 					   + "SET hit = hit + 1 "
 					   + "WHERE no = " + no;
 			ps = conn.prepareStatement(sql);
 			ps.executeUpdate();
+			}
 			// 상세보기
-			sql = "SELECT no, name, subject, content, TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI:SS'), hit "
+			String sql = "SELECT no, name, subject, content, TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI:SS'), hit "
 				+ "FROM replyBoard "
 				+ "WHERE no = " + no;
 			
@@ -177,6 +180,76 @@ public class ReplyBoardDAO {
 		return vo;
 	}
 	// 4. 수정(UPDATE)
+	// 4-1. 수정할 글의 데이터 가져오기
+	public ReplyBoardVO boardUpdateData(int no) {
+		ReplyBoardVO vo = new ReplyBoardVO();
+		
+		try {
+			getConnection();
+			String sql = "SELECT no, name, subject, content "
+					   + "FROM replyBoard "
+					   + "WHERE no = " + no;
+			
+			ps = conn.prepareStatement(sql);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			
+			vo.setNo(rs.getInt(1));
+			vo.setName(rs.getString(2));
+			vo.setSubject(rs.getString(3));
+			vo.setContent(rs.getString(4));
+			
+			rs.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			disconnection();
+		}
+		return vo;
+	}
+	// 4-2. 실제 수정
+	public boolean boardUpdate(ReplyBoardVO vo) {
+		boolean bCheck = false;
+		
+		try {
+			getConnection();
+			String sql = "SELECT pwd FROM replyBoard WHERE no = " + vo.getNo();
+			
+			ps = conn.prepareStatement(sql);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			
+			String db_pwd = rs.getString(1);
+			
+			rs.close();
+			
+			if (db_pwd.equals(vo.getPwd())) {
+				bCheck = true;
+				
+				sql = "UPDATE replyBoard "
+					+ "SET name = ?, subject = ?, content = ? "
+					+ "WHERE no = ?";
+				
+				ps = conn.prepareStatement(sql);
+				
+				ps.setString(1, vo.getName());
+				ps.setString(2, vo.getSubject());
+				ps.setString(3, vo.getContent());
+				ps.setInt(4, vo.getNo());
+				
+				ps.executeUpdate();
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			disconnection();
+		}
+		return bCheck;
+	}
 	// 5. 답변(TRANSACTION)
 	// 6. 삭제(TRANSACTION)
 }

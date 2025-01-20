@@ -23,6 +23,7 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 	ControlPanel cp = new ControlPanel();
 	Login login = new Login();
 	int selectRow = -1;
+	private List<String> userIds = new ArrayList<>();
 	// 배치
 	// 데이터베이스
 	MemberDAO mDao = MemberDAO.newInstance();
@@ -101,12 +102,15 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 				{
 				  case Function.LOGIN:
 				  {
-					  String[] data= {
-						st.nextToken(),
-						st.nextToken(),
-						st.nextToken()
-					  };
-					  cp.cp.model.addRow(data); // ChatPanel 에서 접속인원 출력
+					    String id = st.nextToken();
+					    String name = st.nextToken();
+					    String sex = st.nextToken();
+
+					    // ID 저장
+					    userIds.add(id);
+
+					    // 접속 인원 출력
+					    cp.cp.model.addRow(new String[]{id, name, sex});
 				  }
 				  break;
 				  case Function.MYLOG:
@@ -138,6 +142,7 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 							break;
 						}
 					}
+					  userIds.remove(yid);
 				  }
 				  break;
 				}
