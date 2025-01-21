@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FriendDAO {
-	private Connection conn;
-	private PreparedStatement ps;
-	private static FriendDAO dao;
+	Connection conn;
+	PreparedStatement ps ;
 	private final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
+	private static FriendDAO dao;
 	
 	public FriendDAO() {
 		try {
@@ -20,23 +20,20 @@ public class FriendDAO {
 			ex.printStackTrace();
 		}
 	}
-	
 	public static FriendDAO newInstance() {
 		if (dao == null) {
 			dao = new FriendDAO();
 		}
 		return dao;
 	}
-	
 	public void getConnection() {
 		try {
-			conn = DriverManager.getConnection(URL, "hr", "happy");
+			conn = DriverManager.getConnection(URL, "hr_2", "happy");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
-	
-	public void disconnection() {
+	public void disconnetion() {
 		try {
 			if (ps != null) {
 				ps.close();
@@ -48,67 +45,100 @@ public class FriendDAO {
 			ex.printStackTrace();
 		}
 	}
-	/*
-	 * INSERT INTO friend (requester_id, receiver_id, status) VALUES (?, ?, 'P')
-	 */
-	public void addFriend(String requesterId, String receiverId) {
-		try {
-			getConnection();
-	        // 이미 친구 요청이 존재하는지 확인
-	        String checkSql = "SELECT COUNT(*) "
-	        		        + "FROM friend "
-	        		        + "WHERE (requester_id = ? AND receiver_id = ?) OR (requester_id = ? AND receiver_id = ?)";
-	        ps = conn.prepareStatement(checkSql);
-	        ps.setString(1, requesterId);
-	        ps.setString(2, receiverId);
-	        ps.setString(3, receiverId); // 역방향 관계 확인
-	        ps.setString(4, requesterId);
-
-	        ResultSet rs = ps.executeQuery();
-	        if (rs.next() && rs.getInt(1) > 0) {
-	            System.out.println("이미 친구 요청이 존재하거나 친구로 등록된 상태입니다.");
-	            return;
-	        }
-	        
-			String sql = "INSERT INTO friend(requester_id, receiver_id, status) VALUES(?, ?, 'P')";
-			
-			ps = conn.prepareStatement(sql);
-			
-			ps.setString(1, requesterId);
-			ps.setString(2, receiverId);
-			
-			ps.executeUpdate();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			disconnection();
-		}
-	}
 	
-	public List<String> getFriendList(String userId) {
-	    List<String> friends = new ArrayList<>();
+	public void addFriend(String requesterId, String receiverId) {
 	    try {
 	        getConnection();
-	        String sql = "SELECT receiver_id FROM friend WHERE requester_id = ? AND status = 'P' AND receiver_id != ? UNION " +
-	                "SELECT requester_id FROM friend WHERE receiver_id = ? AND status = 'P' AND requester_id != ?";
-	        ps = conn.prepareStatement(sql);
-	        ps.setString(1, userId);
-	        ps.setString(2, userId);  // 본인 ID를 제외
-	        ps.setString(3, userId);
-	        ps.setString(4, userId);  // 본인 ID를 제외
-	        
-	        ResultSet rs = ps.executeQuery();
-	        rs = ps.executeQuery();
+	        // 자동 커밋 비활성화
+	        conn.setAutoCommit(false);
 
-	        while (rs.next()) {
-	            friends.add(rs.getString(1)); // 친구 ID
+	        // 첫 번째 쿼리: 친구 요청 삽입
+	        String sql = "INSERT INTO friend(requester_id, receiver_id, status) VALUES(?, ?, 'A')";
+	        ps = conn.prepareStatement(sql);
+	        ps.setString(1, requesterId);
+	        ps.setString(2, receiverId);
+	        ps.executeUpdate();
+	        
+
+	        
+	        ps.clearParameters();
+	        // 두 번째 쿼리: 역방향 데이터 삽입
+	        String reverseSql = "INSERT INTO friend(requester_id, receiver_id, status) VALUES(?, ?, 'A')";
+	        ps = conn.prepareStatement(reverseSql);
+	        ps.setString(1, receiverId);
+	        ps.setString(2, requesterId);
+	        ps.executeUpdate();
+
+	        conn.commit();
+	    } catch (Exception ex) {
+	        try {
+	                conn.rollback();
+	        } catch (Exception rollbackEx) {
+	            rollbackEx.printStackTrace();
 	        }
-	        rs.close();
+	        ex.printStackTrace();
+	    } finally {
+	        try {
+	                conn.setAutoCommit(true);
+	        } catch (Exception autoCommitEx) {
+	            autoCommitEx.printStackTrace();
+	        }
+	        disconnetion();
+	    }
+	}
+	public boolean isAlreadyFriend(String currentUserId, String friendId) {
+	    boolean isFriend = false;
+
+	    try {
+	        getConnection();
+	        
+	        // SQL 쿼리: 두 ID로 친구 관계 여부 확인
+	        String sql = "SELECT COUNT(*) FROM friend WHERE " +
+	                     "(requester_id = ? AND receiver_id = ?) OR " +
+	                     "(requester_id = ? AND receiver_id = ?)";
+	        ps = conn.prepareStatement(sql);
+	        
+	        ps.setString(1, currentUserId);
+	        ps.setString(2, friendId);
+	        ps.setString(3, friendId);
+	        ps.setString(4, currentUserId);
+
+	        ResultSet rs = ps.executeQuery();
+	        if (rs.next()) {
+	            int count = rs.getInt(1); // COUNT 결과 가져오기
+	            isFriend = count > 0; // 친구 관계 여부 확인
+	        }
 	    } catch (Exception ex) {
 	        ex.printStackTrace();
 	    } finally {
-	        disconnection();
+	        disconnetion();
 	    }
-	    return friends;
+
+	    return isFriend;
 	}
+	
+	public List<String> getFriendList(String currentId) {
+		List<String> list = new ArrayList<String>();
+		try {
+			getConnection();
+			String sql = "SELECT DISTINCT receiver_id FROM friend WHERE requester_id = ?";
+			
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, currentId);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				list.add(rs.getString(1));
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			disconnetion();
+		}
+		return list;
+	}
+	
+	
 }

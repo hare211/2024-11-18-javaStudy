@@ -92,11 +92,11 @@ public class ReplyBoardDAO {
 		return list;
 	}
 	// 1-1. 총페이지
-	public int boardTotalPage() {
+	public int boardRowCount() {
 		int total = 0;
 		try {
 			getConnection();
-			String sql = "SELECT CEIL(COUNT(*) / 10.0) FROM replyBoard";
+			String sql = "SELECT COUNT(*) FROM replyBoard";
 			
 			ps = conn.prepareStatement(sql);
 			
@@ -251,5 +251,172 @@ public class ReplyBoardDAO {
 		return bCheck;
 	}
 	// 5. 답변(TRANSACTION)
+	public void replyInsert(int pno, ReplyBoardVO vo) {
+		try {
+			getConnection();
+			conn.setAutoCommit(false);
+			
+			String sql = "SELECT group_id, group_step, group_tab "
+					   + "FROM replyBoard "
+					   + "WHERE no = " + pno;
+			
+			ps = conn.prepareStatement(sql);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			
+			int gi = rs.getInt(1);
+			int gs = rs.getInt(2);
+			int gt = rs.getInt(3);
+			
+			rs.close();
+			
+			// 2. SQL : group_stepd 을 변경(답변 핵심)
+			sql = "UPDATE replyBoard "
+				+ "SET group_step = group_step + 1 "
+				+ "WHERE group_id = ? "
+				+ "AND group_step > ?";
+			
+			ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, gi);
+			ps.setInt(2, gs);
+			
+			ps.executeUpdate();
+			
+			// 3. SQL : INSERT
+			sql = "INSERT INTO replyBoard(no, name, subject, content, pwd, group_id, group_step, group_tab, root) "
+					   + "VALUES (rb_no_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?)";
+			
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, vo.getName());
+			ps.setString(2, vo.getSubject());
+			ps.setString(3, vo.getContent());
+			ps.setString(4, vo.getPwd());
+			ps.setInt(5, gi);
+			ps.setInt(6, gs + 1);
+			ps.setInt(7, gt + 1);
+			ps.setInt(8, pno);
+			
+			ps.executeUpdate();
+			
+			// 4. SQL : UPDATE
+			sql = "UPDATE replyBoard "
+				+ "SET depth = depth + 1 "
+				+ "WHERE no = " + pno;
+			
+			ps = conn.prepareStatement(sql);
+			
+			ps.executeUpdate();
+			
+			conn.commit();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} finally {
+			try {
+				conn.setAutoCommit(true);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			disconnection();
+		}
+	}
 	// 6. 삭제(TRANSACTION)
+	public boolean replyDelete(int no, String pwd) {
+		boolean bCheck = false;
+		
+		/*
+		 * 1. 비밀번호 확인 select
+		 * 2. depth
+		 * 		=> 0 => delete
+		 * 		=> > 0 => update
+		 * 3. depth 감소
+		 */
+		try {
+			getConnection();
+			conn.setAutoCommit(false);
+			// SQL
+			String sql = "SELECT pwd, root, depth FROM replyBoard WHERE no = " + no;
+			
+			ps = conn.prepareStatement(sql);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			
+			String db_pwd = rs.getString(1);
+			int root = rs.getInt(2);
+			int depth = rs.getInt(3);
+			
+			rs.close();
+			
+			if (db_pwd.equals(pwd)) {
+				bCheck = true;
+				// 비밀번호 일치 시 삭제
+				if (depth == 0) { // 해당 글에 답변이 존재하지 않는 상태
+					sql = "DELETE FROM replyBoard WHERE no = " + no;
+					
+					ps = conn.prepareStatement(sql);
+					
+					ps.executeUpdate();
+				} else { // 해당 글에 답변이 존재하는 상태
+					String msg = "관리자가 삭제한 게시물입니다";
+					sql = "UPDATE replyBoard "
+						+ "SET subject = ?, content = ? "
+						+ "WHERE no = ?";
+					
+					ps.setString(1, msg);
+					ps.setString(2, msg);
+					ps.setInt(3, no);
+					
+					ps.executeUpdate();
+				}
+				
+				sql = "SELECT depth FROM replyBoard WHERE no = " + root;
+				ps = conn.prepareStatement(sql);
+				
+				rs = ps.executeQuery();
+				
+				rs.next();
+				
+				int d = rs.getInt(1);
+				
+				rs.close();
+				
+				if (d > 0) { // 댓글이 존재하는 상태
+					sql = "UPDATE replyBoard SET depth = depth - 1 WHERE no = " + root;
+					
+					ps = conn.prepareStatement(sql);
+					
+					ps.executeUpdate();
+				}
+				
+			} else {
+				bCheck = false;
+			}
+			
+			conn.commit(); // 저장
+		} catch (Exception ex) {
+			try {
+				conn.rollback(); // SQL 문장 실행 X
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} finally {
+			try {
+				conn.setAutoCommit(true);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			disconnection();
+		}
+		return bCheck;
+	}
 }

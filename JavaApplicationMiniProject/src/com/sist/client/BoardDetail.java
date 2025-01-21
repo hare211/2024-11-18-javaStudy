@@ -3,7 +3,6 @@ package com.sist.client;
 
 import java.awt.Color;
 import java.awt.Font;
-
 import java.awt.event.*;
 // detail.jsp
 import javax.swing.*;
@@ -121,10 +120,24 @@ public class BoardDetail extends JPanel implements ActionListener {
 				
 				cp.card.show(cp, "BUPDATE");
 				cp.bUpdate.print(vo);
-			} else if (e.getSource() == b2) {
-				
+			} else if (e.getSource() == b2) { // 삭제
+				String strNo = no.getText();
+				cp.bDelete.pf.setText("");
+				// 화면 이동
+				cp.card.show(cp, "BDELETE");
+				// strNo 전송
+				cp.bDelete.noLa.setText(strNo);
+				cp.bDelete.pf.requestFocus();
 			} else if (e.getSource() == b4) {
+				String strNo = no.getText(); // 게시글 번호
 				
+				cp.bReply.nameTf.setText("");
+				cp.bReply.subTf.setText("");
+				cp.bReply.ta.setText("");
+				cp.bReply.pwdPf.setText("");
+				
+				cp.card.show(cp, "BREPLY");
+				cp.bReply.noLa.setText(strNo);
 			}
 		}
 }

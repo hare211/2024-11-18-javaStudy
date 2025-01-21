@@ -69,11 +69,59 @@ public class BoardReply extends JPanel implements ActionListener {
     	p.setBounds(100, 435, 535, 35);
     	add(p);
     	
+    	b1.addActionListener(this); // 답변 onClick="함수"(JavaScript)
+    	b2.addActionListener(this); // 취소
+    	
     }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		if (e.getSource() == b1) {
+			
+			String name = nameTf.getText();
+			
+			if (name.trim().isEmpty()) {
+				nameTf.requestFocus();
+				return;
+			}
+			String subject = subTf.getText();
+			
+			if (subject.trim().isEmpty()) {
+				subTf.requestFocus();
+				return;
+			}
+			String content = ta.getText();
+			
+			if (content.trim().isEmpty()) {
+				ta.requestFocus();
+				return;
+			}
+			String pwd = String.valueOf(pwdPf.getPassword());
+			
+			if (pwd.trim().isEmpty()) {
+				pwdPf.requestFocus();
+				return;
+			}
+			String no = noLa.getText();
+			
+			ReplyBoardVO vo = new ReplyBoardVO();
+			vo.setName(name);
+			vo.setSubject(subject);
+			vo.setContent(content);
+			vo.setPwd(pwd);
+			
+			ReplyBoardDAO dao = ReplyBoardDAO.newInstance();
+			
+			dao.replyInsert(Integer.parseInt(no), vo);
+			
+			// 목록
+			cp.card.show(cp, "BLIST");
+			cp.bList.print();
+			
+			
+		} else if (e.getSource() == b2) {
+			cp.card.show(cp, "BDETAIL");
+		}
 	}
 }

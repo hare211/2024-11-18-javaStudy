@@ -108,10 +108,6 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 					    String name = st.nextToken();
 					    String sex = st.nextToken();
 
-					    // 현재 사용자 ID 설정 (로그인 시)
-					    if (currentUserId == null) {
-					        currentUserId = id; // 첫 로그인한 ID를 현재 사용자 ID로 설정
-					    }
 					    // ID 저장
 					    user = new User(id, name, sex);
 					    users.add(user);
@@ -124,6 +120,7 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 				  {
 					  String id=st.nextToken();
 					  setTitle(id);
+					  currentUserId = id; // 여기서 현재 ID 구하기!
 					  login.setVisible(false);
 					  setVisible(true);
 				  }
@@ -240,26 +237,25 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 			JOptionPane.showMessageDialog(this, info);
 			
 		} else if (e.getSource() == cp.cp.addFriendBtn) {
-	        // JTable에서 선택된 행 확인
-	        int selectedRow = cp.cp.table.getSelectedRow();
-
-
-	        // 선택된 유저 ID와 현재 사용자 ID 가져오기
-	        String receiverId = cp.cp.model.getValueAt(selectedRow, 0).toString(); // 선택된 유저 ID
-	        String requesterId = getCurrentUserId();
-	        
-	        
-	        try {
-	            // 친구 요청
-	            FriendDAO dao = FriendDAO.newInstance();
-	            dao.addFriend(requesterId, receiverId);
-	            
-	            // 성공 메시지
-	            JOptionPane.showMessageDialog(this, "친구 요청을 보냈습니다.");
-	        } catch (Exception ex) {
-	            ex.printStackTrace();
-	            JOptionPane.showMessageDialog(this, "친구 요청에 실패했습니다.");
-	        }
+			int selectedRow = cp.cp.table.getSelectedRow();
+			
+			String receiverId = cp.cp.model.getValueAt(selectedRow, 0).toString();
+			String requesterId = getCurrentUserId();
+			
+			if (fDao.isAlreadyFriend(requesterId, receiverId)) {
+				JOptionPane.showMessageDialog(this, "이미 친구인 상대입니다");
+				return;
+			}
+			
+			
+			try {
+				fDao.addFriend(requesterId, receiverId);
+				
+				JOptionPane.showMessageDialog(this, "친구 요청을 보냈습니다");
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(this, "친구 요청에 실패했습니다");
+			}
 		} else if (e.getSource() == cp.cp.listFriendBtn) {
 			String currentUserId = getCurrentUserId();
 			
