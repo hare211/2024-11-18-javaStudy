@@ -5,6 +5,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.*;
+import java.text.*;
+import java.time.LocalDate;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -62,6 +64,7 @@ public class NaverNewsSearch {
          * {} : Object => JSONObject (처음 시작하는 문자가 { 로 시작하기 때문에 JSONObject 로 받아야 함)
          * [] : Array => JSONArray (다음 items 다음이 [ 로 시작하기 때문에 JSONArray 로 받아야 함)
          */
+        // simple - json / jackson
         try {
 			JSONParser jp = new JSONParser();
 			JSONObject root = (JSONObject)jp.parse(responseBody); // { } 안에 items.. 등 컬럼 존재, { } => 객체 하나
@@ -72,19 +75,30 @@ public class NaverNewsSearch {
 			for (int i = 0; i < items.size(); i++) {
 				NewsVO vo = new NewsVO();
 				JSONObject obj = (JSONObject)items.get(i);
-				//System.out.println(obj.toJSONString());
 				String title = (String)obj.get("title");
-				System.out.println(title);
 				String description = (String)obj.get("description");
-				System.out.println(description);
 				String link = (String)obj.get("link");
-				System.out.println(link);
 				String pubDate = (String)obj.get("pubDate");
-				System.out.println(pubDate);
 				
 				// Tue, 21 Jan 2025 12:42:00 +0900 날짜 처리
 				// <b>맛집</b>, 볼드체 처리(제거)
+				
+				pubDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date(pubDate));
+				
+				vo.setTitle(title);
+				vo.setDescription(description);
+				vo.setLink(link);
+				vo.setPubDate(pubDate);
+				
+				list.add(vo);
 			}
+			/*
+			 * 1. 오라클 => 데이터베이스
+			 * 2. HTML => JSoup
+			 * 3. XML => DocumentBuilder
+			 * 		=> Spring / MyBatis : XML 기반
+			 * 4. JSON => Simple-JSON / Jackson
+			 */
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

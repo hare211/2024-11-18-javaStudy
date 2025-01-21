@@ -223,7 +223,7 @@ public class ClientMainFrame extends JFrame implements ActionListener, Runnable,
 			cp.cp.tf.setText("");
 			cp.cp.tf.requestFocus();
 		} else if (e.getSource() == mf.b7) {
-			cp.card.show(cp, "DETAIL");
+			cp.card.show(cp, "NP");
 		} else if (e.getSource() == cp.cp.b2) {
 			if (selectRow == -1) {
 				JOptionPane.showMessageDialog(this, "정보 볼 대상을 선택하세요");
