@@ -36,8 +36,8 @@ public class NaverNewsSearch {
     public static List<NewsVO> newsSearchData(String fd) {
     	List<NewsVO> list = new ArrayList<NewsVO>();
     	
-        String clientId = "djYkMxmzexBgbwuQOJZW"; //애플리케이션 클라이언트 아이디
-        String clientSecret = "_e_RG3tp_K"; //애플리케이션 클라이언트 시크릿
+        String clientId = ""; //애플리케이션 클라이언트 아이디
+        String clientSecret = ""; //애플리케이션 클라이언트 시크릿
         
         
         String text = null;
